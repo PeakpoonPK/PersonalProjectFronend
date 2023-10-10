@@ -7,13 +7,14 @@ import SearchBooking from "../page/SearchBooking"
 import Header from "../layout/header";
 import { Outlet } from "react-router-dom";
 import LoginPage from "../page/LogInPage"
+import RegisterPage from "../page/RegisterPage"
 
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: (
-            <div>
+            <div className="bg-slate-50 h-screen" >
                 <Header />
                 <div>
                     < Outlet />
@@ -24,9 +25,10 @@ const router = createBrowserRouter([
             { path: '/', element: <HomePage /> },
             { path: '/today', element: <TodayAvailable /> },
             { path: '/service', element: <Service /> },
-            { path: '/aboout', element: <About /> },
+            { path: '/about', element: <About /> },
             { path: '/login', element: <LoginPage /> },
-            { path: '/booking', element: <SearchBooking /> }
+            { path: '/booking', element: <SearchBooking /> },
+            { path: '/register', element: <RegisterPage /> }
         ]
     }
 ]);
