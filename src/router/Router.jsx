@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     {
         path: '/',
         element: (
-            <div className="bg-slate-50 h-screen" >
+            <div className="bg-slate-50 h-screen relation" >
                 <Header />
                 <div>
                     < Outlet />

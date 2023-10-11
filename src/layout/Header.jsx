@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 export default function Header() {
     const regularheader = 'text-semantic-textPrimary font-normal text-lg hover:cursor-pointer hover:bg-primary-lightest px-4 py-2 rounded-3xl active:bg-primary-light';
     return (
-        <header className='bg-slate-50 h-24 items-center flex justify-between'>
+        <header className='bg-slate-50 h-24 items-center flex justify-between fixed top-0 left-0 right-0'>
             <div className='flex gap-4 items-center px-16 '>
                 <img src={logo} alt='logo' className='w-16 ' />
                 <h1 className='text-semantic-textPrimary font-semibold text-2xl '>Animal Hospital</h1>

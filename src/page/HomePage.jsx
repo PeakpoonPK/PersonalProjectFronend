@@ -5,7 +5,7 @@ export default function HomePage() {
     const wordDesign = 'text-semantic-textPrimary font-semibold text-5xl';
     return (
         <div className='flex flex-col static m-auto justify-center items-center  h-screen w-screen'>
-            <div className='flex relative left-[300px] justify-center'>
+            <div className='flex relative left-[300px] top-[120px] justify-center'>
                 <div className='flex flex-col bg-semantic-lightCream w-[640px] pb-[160px] ' >
                     <div className='flex flex-col pl-36 pt-28 gap-4'>
                         <p className={wordDesign}>Friendly,</p>
