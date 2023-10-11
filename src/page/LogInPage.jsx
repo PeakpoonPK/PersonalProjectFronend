@@ -18,7 +18,7 @@ export default function LogInPage() {
                         <p className='text-semantic-textPrimary text-lg font-normal'>OR</p>
                     </div>
                     <div className='flex pt-2 justify-center'>
-                        <button className='flex text-xl font-normal border-2 border-secondary-main  bg-slate-50 rounded-2xl text-semantic-textSecondary py-2 px-8 '>Sign Up</button>
+                        <button className='flex text-xl font-normal border-2 border-secondary-main  bg-slate-50 rounded-2xl text-semantic-textSecondary py-2 px-8 '><Link to='/register'>Sign Up</Link></button>
                     </div>
                 </div>
             </div>
