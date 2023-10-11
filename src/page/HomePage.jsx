@@ -4,9 +4,9 @@ import homeImage from '../assets/HomePage.avif'
 export default function HomePage() {
     const wordDesign = 'text-semantic-textPrimary font-semibold text-5xl';
     return (
-        <div className='flex flex-col relative m-auto'>
-            <div className='flex pt-[100px] pl-[720px]'>
-                <div className='flex flex-col bg-semantic-lightCream w-[640px] pb-[160px] absolute ' >
+        <div className='flex flex-col relative m-auto justify-center items-center  h-screen w-screen'>
+            <div className='flex top-[8rem] left-[40rem] inset-0 absolute justify-center'>
+                <div className='flex flex-col bg-semantic-lightCream w-[640px] pb-[160px] ' >
                     <div className='flex flex-col pl-36 pt-28 gap-4'>
                         <p className={wordDesign}>Friendly,</p>
                         <p className={wordDesign}>Compassionate</p>
@@ -27,7 +27,7 @@ export default function HomePage() {
                     </div>
                 </div>
             </div>
-            <div className='flex py-16 px-16 absolute'>
+            <div className='flex  absolute inset-0 top-[-24rem] right-[36rem] justify-center items-center'>
                 <img src={homeImage} alt='homePageImage' className='h-[480px]' />
             </div>
         </div >
