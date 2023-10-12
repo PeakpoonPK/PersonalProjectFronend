@@ -55,10 +55,11 @@ export default function Header() {
                                 Log in
                             </Link>
                         </li>)}
-                    <li className='text-white bg-secondary-main py-2.5 px-5 rounded-3xl font-normal text-lg hover:cursor-pointer hover:bg-secondary-dark active:bg-secondary-darker'>
+                    <li className='flex justify-center items-center gap-2 text-white bg-secondary-main py-2.5 px-5 rounded-3xl font-normal text-lg hover:cursor-pointer hover:bg-secondary-dark active:bg-secondary-darker'>
                         <Link to='/booking'>
                             Booking
                         </Link>
+                        <span className="material-symbols-outlined font-normal text-sm">arrow_forward_ios</span>
                     </li>
                 </ul>
             </div>
