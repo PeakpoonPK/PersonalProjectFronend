@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import loginImage from '../assets/loginPage.avif'
 import { useState } from 'react'
 import { useAuth } from '../hooks/use_auth'
@@ -8,9 +8,11 @@ export default function LogInPage() {
         email: "",
         password: ""
     })
+    const Navigate = useNavigate()
     const handleSubmitForm = e => {
         e.preventDefault();
         login(input)
+        Navigate('/')
     }
     const { login } = useAuth();
     return (
@@ -19,7 +21,7 @@ export default function LogInPage() {
                 <h1 className='text-4xl font-semibold text-semantic-textPrimary'>Log in</h1>
                 <div className='flex flex-col'>
                     <div className='flex flex-col relative'>
-                        <div
+                        <form
                             onSubmit={handleSubmitForm}
                             className='flex flex-col gap-8 pt-10 pb-16 px-6 border-4 rounded-3xl border-primary-darker'>
                             <div>
@@ -44,7 +46,7 @@ export default function LogInPage() {
                                 className='flex absolute top-[170px] left-[150px] text-xl font-normal bg-primary-darker rounded-2xl text-white py-3 px-10 hover:cursor-pointer hover:bg-primary-main active:bg-primary-dark'>
                                 Sign In
                             </button>
-                        </div>
+                        </form>
                     </div>
                     <div className='flex pt-12 justify-center'>
                         <p className='text-semantic-textPrimary text-lg font-normal'>OR</p>

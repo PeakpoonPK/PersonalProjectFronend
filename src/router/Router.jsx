@@ -8,6 +8,9 @@ import Header from "../layout/header";
 import { Outlet } from "react-router-dom";
 import LoginPage from "../page/LogInPage"
 import RegisterPage from "../page/RegisterPage"
+import RedirectIfAuthenticated from "../contexts/RedirectAuthenticated";
+import ProfilePage from '../page/ProfilePage'
+
 
 
 const router = createBrowserRouter([
@@ -22,15 +25,19 @@ const router = createBrowserRouter([
             </div>
         ),
         children: [
-            { path: '/', element: <HomePage /> },
+            {
+                path: '/', element: <HomePage />
+            },
             { path: '/today', element: <TodayAvailable /> },
             { path: '/service', element: <Service /> },
             { path: '/about', element: <About /> },
             { path: '/login', element: <LoginPage /> },
             { path: '/booking', element: <SearchBooking /> },
-            { path: '/register', element: <RegisterPage /> }
+            { path: '/register', element: <RegisterPage /> },
+            { path: '/profile', element: <ProfilePage /> }
         ]
-    }
+    },
+
 ]);
 
 export default function Router() {
