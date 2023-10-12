@@ -2,6 +2,10 @@ import { createContext, useState } from 'react'
 import axios from '../config/axios'
 import { addAccessToken, getAccessToken, removeAccessToken } from '../utils/localStorage'
 import { useEffect } from 'react';
+import Swal from 'sweetalert2'
+
+
+
 
 
 export const AuthContext = createContext();
@@ -32,10 +36,23 @@ export default function AuthContextProvider({ children }) {
             const res = await axios.post('/auth/login', credential);
             addAccessToken(res.data.accessToken);
             setAuthUser(res.data.user)
-
         } catch (err) {
-
             return (err.response.data.message)
+        }
+    }
+
+    const register = async registerInputObject => {
+        try {
+
+            const res = await axios.post('/auth/register', registerInputObject);
+            addAccessToken(res.data.accessToken);
+            setAuthUser(res.data.user);
+            Swal.fire({
+                icon: 'success',
+                title: 'Register successFul!'
+            })
+        } catch (err) {
+            console.log(err)
         }
     }
 
@@ -46,6 +63,6 @@ export default function AuthContextProvider({ children }) {
 
     console.log(authUser)
     return (
-        <AuthContext.Provider value={{ login, authUser, logout, initialLoading }}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ login, authUser, logout, initialLoading, register }}>{children}</AuthContext.Provider>
     )
 }

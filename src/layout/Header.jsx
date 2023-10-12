@@ -38,7 +38,7 @@ export default function Header() {
                         </Link>
                     </li>
                     {authUser ?
-                        (<div className='flex'>
+                        (<div className='flex justify-center items-center'>
                             <li className='flex justify-center items-center gap-2 text-semantic-textPrimary font-normal text-lg rounded-3xl border-2 border-primary-darker hover:cursor-pointer hover:bg-primary-lightest px-4 py-2 active:bg-primary-light' >
                                 <div className=' w-8 h-8 rounded-full bg-primary-light'></div>
                                 <Link to='/profile'> {authUser.firstName}</Link>
