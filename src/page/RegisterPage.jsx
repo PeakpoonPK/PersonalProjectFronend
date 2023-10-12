@@ -65,14 +65,14 @@ export default function RegisterPage() {
 
     const inputDesign = 'outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96';
     return (
-        <div className="grid grid-cols-7 py-44">
+        <div className="mlg:grid mlg:grid-cols-7 py-44 sm:py-36">
             <div className='col-span-3 flex flex-col justify-center items-center gap-6'>
-                <h1 className='text-4xl font-semibold text-semantic-textPrimary'>Register</h1>
+                <h1 className='text-4xl font-semibold text-semantic-textPrimary lg:text-3xl'>Register</h1>
                 <div className='flex flex-col'>
                     <div className='flex flex-col relative'>
                         <form
                             onSubmit={handleSubmitForm}
-                            className='flex flex-col gap-8 pt-10 pb-16 px-6 border-4 rounded-3xl border-primary-darker static'>
+                            className='flex flex-col gap-8 pt-10 pb-16 px-6 border-4 rounded-3xl border-primary-darker static lg:w-[320px]'>
                             <div className='flex flex-col'>
                                 <input
                                     type='text'
@@ -80,7 +80,7 @@ export default function RegisterPage() {
                                     value={input.firstName}
                                     name='firstName'
                                     onChange={handleChangeInput}
-                                    className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 ${error.firstName ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
+                                    className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 lg:w-64 ${error.firstName ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
                                 {error && <InputErrorMessage message={error.firstName} />}
                             </div>
                             <div className='flex flex-col'>
@@ -90,7 +90,7 @@ export default function RegisterPage() {
                                     value={input.lastName}
                                     name='lastName'
                                     onChange={handleChangeInput}
-                                    className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 ${error.lastName ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
+                                    className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 lg:w-64 ${error.lastName ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
                                 {error && <InputErrorMessage message={error.lastName} />}
                             </div>
                             <div className='flex flex-col'>
@@ -100,7 +100,7 @@ export default function RegisterPage() {
                                     value={input.mobile_1}
                                     name='mobile_1'
                                     onChange={handleChangeInput}
-                                    className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 ${error.mobile_1 ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
+                                    className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 lg:w-64 ${error.mobile_1 ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
                                 {error && <InputErrorMessage message={error.mobile_1} />}
                             </div>
                             <div className='flex flex-col'>
@@ -110,7 +110,7 @@ export default function RegisterPage() {
                                     value={input.email}
                                     name='email'
                                     onChange={handleChangeInput}
-                                    className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 ${error.email ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
+                                    className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 lg:w-64 ${error.email ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
                                 {error && <InputErrorMessage message={error.email} />}
                             </div>
                             <div className='flex flex-col'>
@@ -120,7 +120,7 @@ export default function RegisterPage() {
                                     value={input.password}
                                     name='password'
                                     onChange={handleChangeInput}
-                                    className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 ${error.password ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
+                                    className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 lg:w-64 ${error.password ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
                                 {error && <InputErrorMessage message={error.password} />}
                             </div>
                             <div className='flex flex-col'>
@@ -130,15 +130,15 @@ export default function RegisterPage() {
                                     value={input.confirmPassword}
                                     name='confirmPassword'
                                     onChange={handleChangeInput}
-                                    className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 ${error.confirmPassword ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
+                                    className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 lg:w-64 ${error.confirmPassword ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
                                 {error && <InputErrorMessage message={error.confirmPassword} />}
                             </div>
-                            <button className='flex absolute justify-center bottom-[-20px] left-[150px] text-xl font-normal bg-primary-darker rounded-2xl text-white py-3 px-10 hover:cursor-pointer hover:bg-primary-main active:bg-primary-dark'>Sign Up</button>
+                            <button className='flex absolute justify-center bottom-[-20px] left-[150px] lg:left-[80px] text-xl font-normal bg-primary-darker rounded-2xl text-white py-3 px-10 hover:cursor-pointer hover:bg-primary-main active:bg-primary-dark'>Sign Up</button>
                         </form>
                     </div>
                 </div>
             </div>
-            <div className='col-span-4 items-end flex'>
+            <div className='col-span-4 items-center flex justify-center sm:hidden '>
                 <img src={registerImage} alt='logInImage' />
             </div>
         </div>

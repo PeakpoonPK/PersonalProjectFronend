@@ -24,8 +24,6 @@ const validateLogin = input => {
     }
 }
 
-
-
 export default function LogInPage() {
     const [input, setInput] = useState({
         email: "",
