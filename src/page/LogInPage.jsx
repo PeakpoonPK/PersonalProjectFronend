@@ -7,7 +7,7 @@ import InputErrorMessage from '../feature/auth/InputErrorMessage'
 
 const LoginPrismaSchema = Joi.object({
     email: Joi.string().email({ tlds: false }).required(),
-    password: Joi.string().trim().required()
+    password: Joi.string().min(8).trim().required()
 })
 
 const validateLogin = input => {
