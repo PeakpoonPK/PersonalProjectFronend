@@ -63,21 +63,21 @@ export default function LogInPage() {
     }
 
     return (
-        <div className="grid grid-cols-7 pt-48">
-            <div className='col-span-3 flex flex-col justify-center items-center gap-10'>
-                <h1 className='text-4xl font-semibold text-semantic-textPrimary'>Log in</h1>
+        <div className="mlg:grid mlg:grid-cols-7 mlg:pt-48 pt-36">
+            <div className='col-span-3 flex flex-col justify-center items-center gap-10 lg:gap-6'>
+                <h1 className='text-4xl font-semibold text-semantic-textPrimary lg:text-3xl'>Log in</h1>
                 <div className='flex flex-col'>
                     <div className='flex flex-col relative'>
                         <form
                             onSubmit={handleSubmitForm}
-                            className='flex flex-col gap-8 pt-10 pb-16 px-6 border-4 rounded-3xl border-primary-darker'>
+                            className='flex flex-col gap-8 pt-10 pb-16 px-6 border-4 rounded-3xl border-primary-darker lg:pt-6'>
                             <div className='flex flex-col'>
                                 <input
                                     type='text'
                                     placeholder='Email'
                                     value={input.email}
                                     onChange={e => setInput({ ...input, email: e.target.value })}
-                                    className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 ${error.email ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}
+                                    className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 lg:w-64 ${error.email ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}
                                 />
                                 {error && <InputErrorMessage message={error.email} />}
                             </div>
@@ -87,14 +87,14 @@ export default function LogInPage() {
                                     placeholder='Password'
                                     value={input.password}
                                     onChange={e => setInput({ ...input, password: e.target.value })}
-                                    className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 ${error.password ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}
+                                    className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 lg:w-64 ${error.password ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}
                                 />
                                 {error && <InputErrorMessage message={error.password} />}
                             </div>
-                            <button className='flex absolute justify-center bottom-[-20px] left-[150px] text-xl font-normal bg-primary-darker rounded-2xl text-white py-3 px-10 hover:cursor-pointer hover:bg-primary-main active:bg-primary-dark'>Sign In</button>
+                            <button className='flex absolute justify-center bottom-[-20px] left-[150px] lg:left-[80px] text-xl font-normal bg-primary-darker rounded-2xl text-white py-3 px-10 hover:cursor-pointer hover:bg-primary-main active:bg-primary-dark'>Sign In</button>
                         </form>
                     </div>
-                    <div className='flex pt-12 justify-center'>
+                    <div className='flex pt-8 justify-center'>
                         <p className='text-semantic-textPrimary text-lg font-normal'>OR</p>
                     </div>
                     <div className='flex pt-2 justify-center'>
@@ -102,7 +102,7 @@ export default function LogInPage() {
                     </div>
                 </div>
             </div>
-            <div className='col-span-4'>
+            <div className='col-span-4 sm:hidden'>
                 <img src={loginImage} alt='logInImage' />
             </div>
         </div>
