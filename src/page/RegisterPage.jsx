@@ -65,7 +65,7 @@ export default function RegisterPage() {
 
     const inputDesign = 'outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96';
     return (
-        <div className="mlg:grid mlg:grid-cols-7 py-44 sm:py-36">
+        <div className="mlg:grid mlg:grid-cols-7 py-44 sm:py-24">
             <div className='col-span-3 flex flex-col justify-center items-center gap-6'>
                 <h1 className='text-4xl font-semibold text-semantic-textPrimary lg:text-3xl'>Register</h1>
                 <div className='flex flex-col'>
