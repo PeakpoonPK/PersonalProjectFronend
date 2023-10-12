@@ -134,7 +134,7 @@ export default function Header() {
                                 <details className="dropdown dropdown-bottom">
                                     <summary className='flex justify-center items-center text-semantic-textPrimary font-normal text-lg hover:cursor-pointer hover:bg-primary-lightest px-4 py-2 rounded-3xl active:bg-primary-light lg:text-sm lg:px-1'>
                                         <span className='sm:text-white'>Service</span>
-
+                                        <span className="material-symbols-outlined lg:text-sm">keyboard_arrow_down</span>
                                     </summary>
                                     <ul tabIndex={0} className="absolute mt-4 dropdown-content z-[1] menu p-2 shadow rounded-box w-48 bg-primary-darker">
                                         <li className={dropdownDesign}>Cardiology</li>
@@ -159,7 +159,7 @@ export default function Header() {
                     </div>
                     {authUser ?
                         (<details className="dropdown dropdown-bottom" >
-                            <summary className=' flex justify-center items-center gap-2 text-semantic-textPrimary font-normal text-lg rounded-3xl border-2 border-primary-darker hover:cursor-pointer hover:bg-primary-lightest px-4 py-2 active:bg-primary-light ' >
+                            <summary className=' flex justify-center items-center gap-2 text-semantic-textPrimary font-normal text-lg rounded-3xl border-2 border-primary-darker hover:cursor-pointer hover:bg-primary-lightest px-4 py-2 active:bg-primary-light lg:text-sm lg:py-1 lg:px-2 ' >
                                 <span className="material-symbols-outlined w-8 h-8 p-2 rounded-full bg-primary-light text-white flex justify-center items-center text-xl font-thin">person</span>
                                 <span> {authUser.firstName}</span>
                                 <span className="material-symbols-outlined">keyboard_arrow_down</span>
@@ -182,7 +182,7 @@ export default function Header() {
                                     </Link>
                                 </li>
                                 <li className={dropdownDesign} onClick={logout}>
-                                    Log out
+                                    <Link to="/"> Log out</Link>
                                 </li>
 
                             </ul>
