@@ -70,7 +70,7 @@ export default function LogInPage() {
                     <div className='flex flex-col relative'>
                         <form
                             onSubmit={handleSubmitForm}
-                            className='flex flex-col gap-8 pt-10 pb-16 px-6 border-4 rounded-3xl border-primary-darker lg:pt-6'>
+                            className='flex flex-col gap-8 pt-10 pb-16 px-6 border-4 rounded-3xl border-primary-darker lg:pt-6 lg:w-[320px]'>
                             <div className='flex flex-col'>
                                 <input
                                     type='text'
