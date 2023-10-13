@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../hooks/use_auth';
 
 export default function Header() {
+
     const { logout, authUser } = useAuth();
+
     const regularheader = 'text-semantic-textPrimary font-normal text-lg px-4 py-2 rounded-3xl hover:cursor-pointer hover:bg-primary-lightest active:bg-primary-light lg:text-sm lg:px-1 lg:py-1';
-    const dropdownDesign = 'text-white font-normal text-lg hover:cursor-pointer hover:bg-primary-dark px-4 py-2 active:bg-primary-darker';
+    const dropdownDesign = 'text-white font-normal text-lg hover:cursor-pointer hover:bg-primary-dark px-4 py-2 active:bg-primary-darker active:text-white hover:text-white';
     const Hidden = 'sm:hidden'
     const smallText = 'text-sm'
     const smRegularHeader = regularheader + ' ' + Hidden
@@ -13,7 +15,7 @@ export default function Header() {
 
     return (
         <header
-            className='bg-slate-50 h-16 items-center flex justify-between fixed top-0 left-0 right-0 z-10 
+            className='bg-slate-50 h-24 lg:h-16 items-center flex justify-between fixed top-0 left-0 right-0 z-10 
             lg:w-screen sm:w-screen'>
             <div className='flex gap-4 items-center px-16 sm:px-2 sm:gap-2 lg:px-2'>
                 <img src={logo} alt='logo' className='w-16 ' />
@@ -130,7 +132,7 @@ export default function Header() {
                                     Today's Available
                                 </Link>
                             </li>
-                            <li className={smRegularHeader}>
+                            <li>
                                 <details className="dropdown dropdown-bottom">
                                     <summary className='flex justify-center items-center text-semantic-textPrimary font-normal text-lg hover:cursor-pointer hover:bg-primary-lightest px-4 py-2 rounded-3xl active:bg-primary-light lg:text-sm lg:px-1'>
                                         <span className='sm:text-white'>Service</span>
@@ -159,12 +161,13 @@ export default function Header() {
                     </div>
                     {authUser ?
                         (<details className="dropdown dropdown-bottom" >
-                            <summary className=' flex justify-center items-center gap-2 text-semantic-textPrimary font-normal text-lg rounded-3xl border-2 border-primary-darker hover:cursor-pointer hover:bg-primary-lightest px-4 py-2 active:bg-primary-light lg:text-sm lg:py-1 lg:px-2 ' >
+
+                            <summary className=' flex justify-center items-center gap-2  font-normal text-lg rounded-3xl border-2 border-primary-darker hover:cursor-pointer hover:bg-primary-lightest px-4 py-2 active:bg-primary-light lg:text-sm lg:py-1 lg:px-2 ' >
                                 <span className="material-symbols-outlined w-8 h-8 p-2 rounded-full bg-primary-light text-white flex justify-center items-center text-xl font-thin">person</span>
                                 <span> {authUser.firstName}</span>
                                 <span className="material-symbols-outlined">keyboard_arrow_down</span>
                             </summary>
-                            <ul tabIndex={0} className="absolute mt-4 dropdown-content z-[1] menu p-2 shadow rounded-box w-48 bg-primary-darker">
+                            <ul tabIndex={0} className="absolute mt-4 dropdown-content z-[1] menu p-2 shadow rounded-box w-56 lg:w-56 bg-primary-darker">
                                 <li className={dropdownDesign} >
                                     <Link to="/profile">
                                         Profile
@@ -184,7 +187,6 @@ export default function Header() {
                                 <li className={dropdownDesign} onClick={logout}>
                                     <Link to="/"> Log out</Link>
                                 </li>
-
                             </ul>
                         </details>
                         )

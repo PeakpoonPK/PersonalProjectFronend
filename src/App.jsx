@@ -8,12 +8,10 @@ function App() {
   if (initialLoading) {
     return <Loading />
   }
+
   return (
     <Router />
   )
 }
 
-// function App() {
-//   return <Loading />
-// }
 export default App

@@ -1,10 +1,14 @@
-
+import dogRun from '../assets/giphy.gif'
 
 export default function Loading() {
     return (
-
-        <div className="bg-slate-50 flex justify-center items-center h-screen text-5xl">Loading</div>
-        // <span className="loading loading-spinner loading-xs"></span>
-
+        <div className=" flex justify-center items-center h-screen flex-col gap-0">
+            <img src={dogRun} alt='Dog run' className='w-36'></img>
+            <div className=' flex  gap-2'>
+                <span className='text-semantic-textPrimary '>Loading</span>
+                <span className="loading loading-dots loading-xs text-secondary-main"></span>
+            </div>
+            {/* <span className="loading loading-spinner text-secondary-main loading-lg"></span> */}
+        </div>
     )
 }
