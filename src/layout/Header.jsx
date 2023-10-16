@@ -75,18 +75,18 @@ export default function Header() {
                             </summary>
                             <ul tabIndex={0} className="mt-4 dropdown-content z-[1] menu p-2 shadow rounded-box w-48 bg-primary-darker">
                                 <li className={smDropdrownDesign} >
-                                    <Link to="/profile" >
+                                    <Link to={`/profile/${authUser.id}`} >
                                         Profile
                                     </Link>
                                 </li>
                                 <li className={smDropdrownDesign} >
-                                    <Link to="/profile">
+                                    <Link to="/pets">
                                         My Pets
                                     </Link>
 
                                 </li>
                                 <li className={smDropdrownDesign} >
-                                    <Link to="/profile">
+                                    <Link to="/appointment">
                                         My Appointment
                                     </Link>
                                 </li>
@@ -169,18 +169,18 @@ export default function Header() {
                             </summary>
                             <ul tabIndex={0} className="absolute mt-4 dropdown-content z-[1] menu p-2 shadow rounded-box w-56 lg:w-56 bg-primary-darker">
                                 <li className={dropdownDesign} >
-                                    <Link to="/profile">
+                                    <Link to={`/profile/${authUser.id}`}>
                                         Profile
                                     </Link>
                                 </li>
                                 <li className={dropdownDesign} >
-                                    <Link to="/profile">
+                                    <Link to="/pets">
                                         My Pets
                                     </Link>
 
                                 </li>
                                 <li className={dropdownDesign} >
-                                    <Link to="/profile">
+                                    <Link to="/appointment">
                                         My Appointment
                                     </Link>
                                 </li>

@@ -21,7 +21,10 @@ export default function AuthContextProvider({ children }) {
                 .then(res => {
                     setAuthUser(res.data.user)
                 }).finally(() => {
-                    setInitialLoading(false)
+                    setTimeout(() => {
+                        setInitialLoading(false)
+                    }, 1000);
+
                 });
         }
         else {

@@ -10,6 +10,8 @@ import LoginPage from "../page/LogInPage"
 import RegisterPage from "../page/RegisterPage"
 import RedirectIfAuthenticated from "../feature/auth/RedirectAuthenticated";
 import ProfilePage from '../page/ProfilePage'
+import PetPage from '../page/PetPage'
+import MyAppointmentPage from '../page/MyAppointment'
 
 
 
@@ -33,8 +35,8 @@ const router = createBrowserRouter([
             { path: '/booking', element: <SearchBooking /> },
             { path: '/register', element: <RegisterPage /> },
             { path: '/profile/:profileId', element: <ProfilePage /> },
-            { path: '/pets/:profileId', element: <ProfilePage /> },
-            { path: '/appointment/:profileId', element: <ProfilePage /> }
+            { path: '/pets', element: <PetPage /> },
+            { path: '/appointment', element: <MyAppointmentPage /> }
         ]
     },
     {

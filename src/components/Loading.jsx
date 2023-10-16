@@ -8,7 +8,7 @@ export default function Loading() {
                 <span className='text-semantic-textPrimary '>Loading</span>
                 <span className="loading loading-dots loading-xs text-secondary-main"></span>
             </div>
-            {/* <span className="loading loading-spinner text-secondary-main loading-lg"></span> */}
+
         </div>
     )
 }
