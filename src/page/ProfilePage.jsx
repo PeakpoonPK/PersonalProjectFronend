@@ -1,20 +1,17 @@
-import { Link } from "react-router-dom";
 
-import { useAuth } from '../hooks/use_auth';
 import SideBarProfile from "../layout/SideBarProfile";
 import MainProfile from "../layout/MainProfile";
 
 
 
 export default function ProfilePage() {
-    const { logout } = useAuth();
 
     return (
-        <div >
-            <div>
+        <div className="flex">
+            <div className="fixed top-0 left-0 right-0 ">
                 <SideBarProfile />
             </div>
-            <div>
+            <div className="pb-24">
                 <MainProfile />
             </div>
 
