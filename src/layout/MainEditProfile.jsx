@@ -42,6 +42,7 @@ export default function EditProfile({ children, title, initialSrc }) {
     useEffect(() => {
         setInput({ ...authUser })
     }, [])
+
     const [error, setError] = useState({})
     const [input, setInput] = useState({
         firstName: '',
@@ -65,6 +66,7 @@ export default function EditProfile({ children, title, initialSrc }) {
             delete inputCheck.email
             delete inputCheck.profileImage
             delete inputCheck.password
+
             e.preventDefault();
             const validationError = validateEditProfile(inputCheck);
             if (validationError) {

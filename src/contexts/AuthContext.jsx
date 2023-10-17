@@ -75,10 +75,21 @@ export default function AuthContextProvider({ children }) {
         }
     }
 
-
+    const AddPet = async (addMyPet) => {
+        try {
+            const res = await axios.post('/pets/add', addMyPet)
+            setAuthUser(({ ...authUser, ...res.data.addMyPet }))
+            Swal.fire({
+                icon: 'success',
+                title: 'Add Pet SuccessFul!'
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
 
     return (
-        <AuthContext.Provider value={{ login, authUser, logout, initialLoading, register, editProfile }}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ login, authUser, logout, initialLoading, register, editProfile, AddPet }}>{children}</AuthContext.Provider>
     )
 }

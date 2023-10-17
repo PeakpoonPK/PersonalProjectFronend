@@ -13,6 +13,7 @@ import ProfilePage from '../page/ProfilePage'
 import PetPage from '../page/PetPage'
 import MyAppointmentPage from '../page/MyAppointment'
 import EditProfilePage from '../page/EditProfilePage'
+import AddPetPage from "../page/AddPetPage";
 
 
 
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
             { path: '/profile/:profileId', element: <ProfilePage /> },
             { path: '/profile/:profileId/editProfile', element: <EditProfilePage /> },
             { path: '/pets/:profileId', element: <PetPage /> },
+            { path: '/pets/add/:profileId', element: <AddPetPage /> },
             { path: '/appointment', element: <MyAppointmentPage /> }
         ]
     },
