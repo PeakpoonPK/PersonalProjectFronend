@@ -11,12 +11,13 @@ const AddPetSchema = Joi.object({
     age: Joi.string().trim(),
     sex: Joi.string().trim(),
     drugAllergy: Joi.string().trim(),
-    other: Joi.string().trim(),
+    Other: Joi.string().trim(),
     userId: Joi.number()
 })
 
-const validateAddPet = input => {
-    const { error } = AddPetSchema.validate(input, { abortEarly: false });
+const validateAddPet = petinput => {
+    console.log(petinput)
+    const { error } = AddPetSchema.validate(petinput, { abortEarly: false });
     console.log(error);
     if (error) {
         const result = error.details.reduce((acc, el) => {
@@ -34,16 +35,14 @@ export default function AddpetsForm() {
     const inputEl = useRef(null);
     const { authUser } = useAuth()
 
-    useEffect(() => {
-        setInput({ ...authUser })
-    }, [])
 
-    const [input, setInput] = useState({
+
+    const [petInput, setPetInput] = useState({
         petName: '',
         breed: '',
         sex: '',
         age: '',
-        other: '',
+        Other: '',
         drugAllergy: '',
         userId: ''
     })
@@ -53,29 +52,48 @@ export default function AddpetsForm() {
     const [error, setError] = useState({});
 
     const handleChangeInput = e => {
-        setInput({ ...input, [e.target.name]: e.target.value })
+        setPetInput({ ...petInput, [e.target.name]: e.target.value })
     }
 
     const handleSubmitForm = e => {
-        const inputCheck = { ...input }
+        const userId = +authUser.id
+        const inputCheck = { ...petInput, userId }
 
+        console.log(inputCheck)
         e.preventDefault();
 
-        const validationError = validateAddPet(input);
+
+        const validationError = validateAddPet(inputCheck);
         if (validationError) {
             return setError(validationError);
         }
 
         const formData = new FormData();
-        console.log('first')
+
         if (file) {
             formData.append('petImage', file)
         }
-        formData.append('petData', JSON.stringify(inputCheck))
 
+        formData.append('petData', JSON.stringify(inputCheck))
         console.log(formData.get('petData'))
+
         setError({});
-        AddPet(formData);
+
+        // const AddPet = async (addMyPet) => {
+        //     try {
+        //         const res = await axios.post('/pets/add', { ...addMyPet, userId })
+
+        //         Swal.fire({
+        //             icon: 'success',
+        //             title: 'Add Pet SuccessFul!'
+        //         })
+        //     } catch (err) {
+        //         console.log(err)
+        //     }
+        // }
+
+        AddPet(formData)
+
         Navigate(`/pets/${authUser.id}`)
     };
 
@@ -85,7 +103,7 @@ export default function AddpetsForm() {
                 onSubmit={handleSubmitForm}
                 className='flex flex-col gap-8 mt-6 border-4 sm:border-2 rounded-3xl border-secondary-darker justify-center lg:w-[560px] sm:w-[240px] w-[600px] m-auto relative pb-24 '>
                 <div>
-                    {/* <input
+                    <input
                         type="file"
                         className="hidden"
                         ref={inputEl}
@@ -94,7 +112,7 @@ export default function AddpetsForm() {
                                 setFile(e.target.files[0])
                             }
                         }}
-                    /> */}
+                    />
                     <div className="pl-[200px] pt-10">
                         <div
                             onClick={() => { inputEl.current.click() }}
@@ -108,7 +126,7 @@ export default function AddpetsForm() {
                             <input
                                 type='text'
                                 placeholder='Name'
-                                value={input.petName}
+                                value={petInput.petName}
                                 name='petName'
                                 onChange={handleChangeInput}
                                 className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 lg:w-64 ${error.petName ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
@@ -118,7 +136,7 @@ export default function AddpetsForm() {
                             <input
                                 type='sex'
                                 placeholder='Sex'
-                                value={input.sex}
+                                value={petInput.sex}
                                 name='sex'
                                 onChange={handleChangeInput}
                                 className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 lg:w-64 ${error.sex ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
@@ -128,7 +146,7 @@ export default function AddpetsForm() {
                             <input
                                 type='breed'
                                 placeholder='Breed'
-                                value={input.breed}
+                                value={petInput.breed}
                                 name='breed'
                                 onChange={handleChangeInput}
                                 className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 lg:w-64 ${error.breed ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
@@ -138,7 +156,7 @@ export default function AddpetsForm() {
                             <input
                                 type='age'
                                 placeholder='age'
-                                value={input.age}
+                                value={petInput.age}
                                 name='age'
                                 onChange={handleChangeInput}
                                 className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 lg:w-64 ${error.age ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
@@ -148,7 +166,7 @@ export default function AddpetsForm() {
                             <input
                                 type='drugAllergy'
                                 placeholder='drugAllergy'
-                                value={input.drugAllergy}
+                                value={petInput.drugAllergy}
                                 name='drugAllergy'
                                 onChange={handleChangeInput}
                                 className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 lg:w-64 ${error.drugAllergy ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
@@ -156,13 +174,13 @@ export default function AddpetsForm() {
                         </div>
                         <div className='flex flex-col'>
                             <input
-                                type='other'
-                                placeholder='other'
-                                value={input.other}
-                                name='other'
+                                type='Other'
+                                placeholder='Other'
+                                value={petInput.Other}
+                                name='Other'
                                 onChange={handleChangeInput}
-                                className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 lg:w-64 ${error.other ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
-                            {error && <InputErrorMessage message={error.other} />}
+                                className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 lg:w-64 ${error.Other ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
+                            {error && <InputErrorMessage message={error.Other} />}
                         </div>
                     </div>
                     <button className='flex absolute justify-center bottom-4 right-10 lg:left-[80px] text-xl font-normal bg-primary-darker rounded-2xl text-white py-3 px-10 hover:cursor-pointer hover:bg-primary-main active:bg-primary-dark'>Add</button>

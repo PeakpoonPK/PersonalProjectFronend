@@ -78,7 +78,7 @@ export default function AuthContextProvider({ children }) {
     const AddPet = async (addMyPet) => {
         try {
             const res = await axios.post('/pets/add', addMyPet)
-            setAuthUser(({ ...authUser, ...res.data.addMyPet }))
+            setAuthUser(({ ...authUser, ...res.data.pets }))
             Swal.fire({
                 icon: 'success',
                 title: 'Add Pet SuccessFul!'
