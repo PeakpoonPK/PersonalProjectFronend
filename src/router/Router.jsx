@@ -12,6 +12,7 @@ import RedirectIfAuthenticated from "../feature/auth/RedirectAuthenticated";
 import ProfilePage from '../page/ProfilePage'
 import PetPage from '../page/PetPage'
 import MyAppointmentPage from '../page/MyAppointment'
+import EditProfilePage from '../page/EditProfilePage'
 
 
 
@@ -31,11 +32,11 @@ const router = createBrowserRouter([
             { path: '/today', element: <TodayAvailable /> },
             { path: '/service', element: <Service /> },
             { path: '/about', element: <About /> },
-            // { path: '/login', element: <LoginPage /> },
             { path: '/booking', element: <SearchBooking /> },
             { path: '/register', element: <RegisterPage /> },
             { path: '/profile/:profileId', element: <ProfilePage /> },
-            { path: '/pets', element: <PetPage /> },
+            { path: '/profile/:profileId/editProfile', element: <EditProfilePage /> },
+            { path: '/pets/:profileId', element: <PetPage /> },
             { path: '/appointment', element: <MyAppointmentPage /> }
         ]
     },

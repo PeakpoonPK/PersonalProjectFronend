@@ -5,14 +5,10 @@ import { useEffect } from 'react';
 import Swal from 'sweetalert2'
 
 
-
-
-
 export const AuthContext = createContext();
 
 export default function AuthContextProvider({ children }) {
     const [authUser, setAuthUser] = useState(null);
-
     const [initialLoading, setInitialLoading] = useState(true);
 
     useEffect(() => {
@@ -46,7 +42,6 @@ export default function AuthContextProvider({ children }) {
 
     const register = async registerInputObject => {
         try {
-
             const res = await axios.post('/auth/register', registerInputObject);
             addAccessToken(res.data.accessToken);
             setAuthUser(res.data.user);
@@ -64,8 +59,26 @@ export default function AuthContextProvider({ children }) {
         setAuthUser(null)
     }
 
-    console.log(authUser)
+    const editProfile = async (updateProfile) => {
+        console.log('first')
+        try {
+            const res = await axios.patch('/user', updateProfile)
+            setAuthUser(({ ...authUser, ...res.data.updateProfile, }))
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Update Profile SuccessFul!'
+            })
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+
+
+
     return (
-        <AuthContext.Provider value={{ login, authUser, logout, initialLoading, register }}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ login, authUser, logout, initialLoading, register, editProfile }}>{children}</AuthContext.Provider>
     )
 }

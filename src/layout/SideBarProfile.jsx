@@ -15,7 +15,7 @@ export default function SideBarProfile() {
                     </Link>
                 </li>
                 <li className="flex flex-col sm:items-center py-4 lg:px-4 px-10 hover:bg-semantic-lightCream w-[100%] hover:cursor-pointer active:bg-white">
-                    <Link to='/pets' className="flex gap-4">
+                    <Link to={`/pets/${authUser.id}`} className="flex gap-4">
                         <span className="material-symbols-outlined">pets</span>
                         <span className="sm:hidden">My Pets</span>
                     </Link>

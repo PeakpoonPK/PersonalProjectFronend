@@ -70,7 +70,8 @@ export default function Header() {
                     {authUser ?
                         (<details className="dropdown dropdown-bottom dropdown-end" >
                             <summary className=' flex justify-center items-center gap-2 text-semantic-textPrimary font-normal text-lg rounded-3xl border-2 border-primary-darker hover:cursor-pointer hover:bg-primary-lightest px-2 py-1 active:bg-primary-light ' >
-                                <span className="material-symbols-outlined w-6 h-6 p-2 rounded-full bg-primary-light text-white flex justify-center items-center text-base font-thin">person</span>
+                                {authUser.profileImage ? (<div className='w-[20px] h-[20px] overflow-hidden rounded-full shadow-md '>{authUser.profileImage}</div>) :
+                                    (<span className="material-symbols-outlined w-6 h-6 p-2 rounded-full bg-primary-light text-white flex justify-center items-center text-base font-thin">person</span>)}
                                 <span className="material-symbols-outlined">keyboard_arrow_down</span>
                             </summary>
                             <ul tabIndex={0} className="mt-4 dropdown-content z-[1] menu p-2 shadow rounded-box w-48 bg-primary-darker">
@@ -80,7 +81,7 @@ export default function Header() {
                                     </Link>
                                 </li>
                                 <li className={smDropdrownDesign} >
-                                    <Link to="/pets">
+                                    <Link to={`/pets/${authUser.id}`}>
                                         My Pets
                                     </Link>
 
@@ -161,9 +162,16 @@ export default function Header() {
                     </div>
                     {authUser ?
                         (<details className="dropdown dropdown-bottom" >
-
                             <summary className=' flex justify-center items-center gap-2  font-normal text-lg rounded-3xl border-2 border-primary-darker hover:cursor-pointer hover:bg-primary-lightest px-4 py-2 active:bg-primary-light lg:text-sm lg:py-1 lg:px-2 ' >
-                                <span className="material-symbols-outlined w-8 h-8 p-2 rounded-full bg-primary-light text-white flex justify-center items-center text-xl font-thin">person</span>
+                                {authUser.profileImage ? (
+                                    <div className='w-[40px] h-[40px] overflow-hidden rounded-full shadow-md  '>
+                                        <img src={authUser.profileImage} alt='profileImage' className='object-cover h-full aspect-square' ></img>
+                                    </div>) :
+                                    (<div>
+                                        <span className="material-symbols-outlined w-6 h-6 p-2 rounded-full bg-primary-light text-white flex justify-center items-center text-base font-thin">
+                                            person
+                                        </span>
+                                    </div>)}
                                 <span> {authUser.firstName}</span>
                                 <span className="material-symbols-outlined">keyboard_arrow_down</span>
                             </summary>
@@ -174,7 +182,7 @@ export default function Header() {
                                     </Link>
                                 </li>
                                 <li className={dropdownDesign} >
-                                    <Link to="/pets">
+                                    <Link to={`/pets/${authUser.id}`}>
                                         My Pets
                                     </Link>
 
