@@ -99,7 +99,7 @@ export default function EditProfile({ children, title, initialSrc }) {
             <form
 
                 onSubmit={handleSubmitForm}
-                className='flex flex-col gap-8 mt-6 border-4 sm:border-2 rounded-3xl border-secondary-darker justify-center lg:w-[560px] sm:w-[240px] w-[600px] m-auto relative pb-24 h-[600px]'>
+                className='flex flex-col gap-8 mt-6 border-4 sm:border-2 rounded-3xl border-secondary-darker justify-center lg:w-[560px] sm:w-[240px] w-[600px] m-auto relative pb-24 h-[640px]'>
                 {loading ? <Loading /> :
                     <><div className='flex sm:pt-4 pt-8'>
                         <input
@@ -127,7 +127,7 @@ export default function EditProfile({ children, title, initialSrc }) {
                                     <div onClick={() => { inputEl.current.click() }}
                                         className='w-[200px] h-[200px] overflow-hidden rounded-full shadow-md'>
                                         {file ? (<img src={URL.createObjectURL(file)} alt="post" className='object-cover h-full aspect-square' />) :
-                                            (<span className="material-symbols-outlined  flex m-auto sm:h-24 sm:w-24 rounded-full h-36 w-36 justify-center bg-primary-light text-white items-center sm:text-[60px] text-[80px] font-extralight">person</span>)}
+                                            (<span className="material-symbols-outlined w-[200px] h-[200px] flex m-auto sm:h-24 sm:w-24 rounded-full  justify-center bg-primary-light text-white items-center sm:text-[60px] text-[80px] font-extralight">person</span>)}
                                     </div>
                                 </div>
                                 )
@@ -180,7 +180,7 @@ export default function EditProfile({ children, title, initialSrc }) {
                                     <input
                                         className={` bg-slate-50 outline-none flex border-b-2 border-primary-darker w-[360px] m-auto justify-center text-black mr-6 ${error.email ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}
                                         placeholder={authUser.mobile_2}
-                                        value={input.mobile_2 || "-"}
+                                        value={input.mobile_2 || ""}
                                         name='mobile_2'
                                         onChange={handleChangeInput}
                                     ></input>
@@ -193,7 +193,7 @@ export default function EditProfile({ children, title, initialSrc }) {
                                     <input
                                         className={` bg-slate-50 outline-none flex border-b-2 border-primary-darker w-[360px] m-auto justify-center text-black mr-6 ${error.email ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}
                                         placeholder={authUser.lineId}
-                                        value={input.lineId || "-"}
+                                        value={input.lineId || ""}
                                         name='lineId'
                                         onChange={handleChangeInput}
                                     ></input>
@@ -206,7 +206,7 @@ export default function EditProfile({ children, title, initialSrc }) {
                                     <input
                                         className={` bg-slate-50 outline-none flex border-b-2 border-primary-darker w-[360px] m-auto justify-center text-black mr-6 ${error.email ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}
                                         placeholder={authUser.address}
-                                        value={input.address || "-"}
+                                        value={input.address || ""}
                                         name='address'
                                         onChange={handleChangeInput}
                                     ></input>
