@@ -1,10 +1,8 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/use_auth';
 import { useState, useEffect, useRef } from 'react';
 import Joi from 'joi'
 import InputErrorMessage from '../feature/auth/InputErrorMessage';
-import { getAccessToken } from '../utils/localStorage'
-import axios from '../config/axios';
 import Loading from '../components/Loading'
 
 const EditProfilePrismaSchema = Joi.object({

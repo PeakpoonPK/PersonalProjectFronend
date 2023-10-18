@@ -3,6 +3,7 @@ import Joi from 'joi'
 import { useNavigate } from "react-router-dom"
 import { useState, useEffect, useRef } from "react"
 import { useAuth } from "../../hooks/use_auth"
+import Loading from "../../components/Loading"
 
 
 const AddPetSchema = Joi.object({
@@ -31,7 +32,7 @@ const validateAddPet = petinput => {
 
 export default function AddpetsForm() {
     const [file, setFile] = useState(null);
-    // const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const inputEl = useRef(null);
     const { authUser } = useAuth()
 
@@ -55,54 +56,47 @@ export default function AddpetsForm() {
         setPetInput({ ...petInput, [e.target.name]: e.target.value })
     }
 
-    const handleSubmitForm = e => {
-        const userId = +authUser.id
-        const inputCheck = { ...petInput, userId }
+    const handleSubmitForm = async (e) => {
+        try {
+            const userId = +authUser.id
+            const inputCheck = { ...petInput, userId }
 
-        console.log(inputCheck)
-        e.preventDefault();
+            console.log(inputCheck)
+            e.preventDefault();
 
 
-        const validationError = validateAddPet(inputCheck);
-        if (validationError) {
-            return setError(validationError);
+            const validationError = validateAddPet(inputCheck);
+            if (validationError) {
+                return setError(validationError);
+            }
+
+            const formData = new FormData();
+
+            if (file) {
+                formData.append('petImage', file)
+            }
+
+            formData.append('petData', JSON.stringify(inputCheck))
+            console.log(formData.get('petData'))
+
+            setError({});
+            setLoading(true)
+            await AddPet(formData)
+            Navigate(`/pets/${authUser.id}`)
+        } catch (err) {
+            console.log(err)
+        } finally {
+            setLoading(false)
         }
 
-        const formData = new FormData();
-
-        if (file) {
-            formData.append('petImage', file)
-        }
-
-        formData.append('petData', JSON.stringify(inputCheck))
-        console.log(formData.get('petData'))
-
-        setError({});
-
-        // const AddPet = async (addMyPet) => {
-        //     try {
-        //         const res = await axios.post('/pets/add', { ...addMyPet, userId })
-
-        //         Swal.fire({
-        //             icon: 'success',
-        //             title: 'Add Pet SuccessFul!'
-        //         })
-        //     } catch (err) {
-        //         console.log(err)
-        //     }
-        // }
-
-        AddPet(formData)
-
-        Navigate(`/pets/${authUser.id}`)
     };
 
     return (
         <div>
             <form
                 onSubmit={handleSubmitForm}
-                className='flex flex-col gap-8 mt-6 border-4 sm:border-2 rounded-3xl border-secondary-darker justify-center lg:w-[560px] sm:w-[240px] w-[600px] m-auto relative pb-24 '>
-                <div>
+                className='flex flex-col gap-8 mt-6 border-4 sm:border-2 rounded-3xl border-secondary-darker justify-center lg:w-[560px] sm:w-[240px] w-[600px] m-auto relative pb-24 h-[720px] '>
+                {loading ? <Loading /> : (<div>
                     <input
                         type="file"
                         className="hidden"
@@ -184,7 +178,7 @@ export default function AddpetsForm() {
                         </div>
                     </div>
                     <button className='flex absolute justify-center bottom-4 right-10 lg:left-[80px] text-xl font-normal bg-primary-darker rounded-2xl text-white py-3 px-10 hover:cursor-pointer hover:bg-primary-main active:bg-primary-dark'>Add</button>
-                </div>
+                </div>)}
             </form>
         </div>
     )
