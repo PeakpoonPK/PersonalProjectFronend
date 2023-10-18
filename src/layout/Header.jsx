@@ -22,7 +22,7 @@ export default function Header() {
                 <h1 className='text-semantic-textPrimary font-semibold text-2xl lg:text-sm '>Animal Hospital</h1>
             </div>
 
-            <div className='mlg:hidden'>
+            {/* <div className='mlg:hidden'>
                 <ul className='flex gap-2 px-2 items-center'>
                     <details className="dropdown dropdown-bottom dropdown-end ">
                         <summary className="m-1 btn text-semantic-textPrimary font-normal text-sm hover:cursor-pointer hover:bg-primary-lightest px-1 py-2 rounded-xl active:bg-primary-light ">
@@ -114,11 +114,11 @@ export default function Header() {
                         <span className="material-symbols-outlined font-normal text-sm">arrow_forward_ios</span>
                     </li>
                 </ul>
-            </div >
+            </div > */}
 
 
             <div className='sm:hidden'>
-                <ul className='flex gap-2 px-16 items-center lg:px-2'>
+                <ul className='flex gap-2 px-16 items-center lg:px-2 '>
                     <div>
                         <ul className='flex justify-center items-center' >
                             <li
@@ -160,58 +160,60 @@ export default function Header() {
                             </li >
                         </ul>
                     </div>
-                    {authUser ?
-                        (<details className="dropdown dropdown-bottom" >
-                            <summary className=' flex justify-center items-center gap-2  font-normal text-lg rounded-3xl border-2 border-primary-darker hover:cursor-pointer hover:bg-primary-lightest px-4 py-2 active:bg-primary-light lg:text-sm lg:py-1 lg:px-2 ' >
-                                {authUser.profileImage ? (
-                                    <div className='w-[40px] h-[40px] overflow-hidden rounded-full shadow-md  '>
-                                        <img src={authUser.profileImage} alt='profileImage' className='object-cover h-full aspect-square' ></img>
-                                    </div>) :
-                                    (<div>
-                                        <span className="material-symbols-outlined w-6 h-6 p-2 rounded-full bg-primary-light text-white flex justify-center items-center text-base font-thin">
-                                            person
-                                        </span>
-                                    </div>)}
-                                <span> {authUser.firstName}</span>
-                                <span className="material-symbols-outlined">keyboard_arrow_down</span>
-                            </summary>
-                            <ul tabIndex={0} className="absolute mt-4 dropdown-content z-[1] menu p-2 shadow rounded-box w-56 lg:w-56 bg-primary-darker">
-                                <li className={dropdownDesign} >
-                                    <Link to={`/profile/${authUser.id}`}>
-                                        Profile
-                                    </Link>
-                                </li>
-                                <li className={dropdownDesign} >
-                                    <Link to={`/pets/${authUser.id}`}>
-                                        My Pets
-                                    </Link>
+                    {
+                        authUser ?
+                            (<details className="dropdown dropdown-bottom " >
+                                <summary className=' flex justify-center items-center gap-2  font-normal text-lg rounded-3xl border-2 border-primary-darker hover:cursor-pointer hover:bg-primary-lightest px-4 py-2 active:bg-primary-light lg:text-sm lg:py-1 lg:px-2 ' >
+                                    {authUser.profileImage ? (
+                                        <div className='w-[40px] h-[40px] overflow-hidden rounded-full shadow-md  '>
+                                            <img src={authUser.profileImage} alt='profileImage' className='object-cover h-full aspect-square' ></img>
+                                        </div>) :
+                                        (<div>
+                                            <span className="material-symbols-outlined w-6 h-6 p-2 rounded-full bg-primary-light text-white flex justify-center items-center text-base font-thin">
+                                                person
+                                            </span>
+                                        </div>)}
+                                    <span> {authUser.firstName}</span>
+                                    <span className="material-symbols-outlined">keyboard_arrow_down</span>
+                                </summary>
+                                <ul tabIndex={0} className="absolute mt-4 dropdown-content z-[1] menu p-2 shadow rounded-box w-56 lg:w-56 bg-primary-darker">
+                                    <li className={dropdownDesign} >
+                                        <Link to={`/profile/${authUser.id}`}>
+                                            Profile
+                                        </Link>
+                                    </li>
+                                    <li className={dropdownDesign} >
+                                        <Link to={`/pets/${authUser.id}`}>
+                                            My Pets
+                                        </Link>
 
-                                </li>
-                                <li className={dropdownDesign} >
-                                    <Link to="/appointment">
-                                        My Appointment
-                                    </Link>
-                                </li>
-                                <li className={dropdownDesign} onClick={logout}>
-                                    <Link to="/"> Log out</Link>
-                                </li>
-                            </ul>
-                        </details>
-                        )
-                        :
-                        (<li
-                            className='text-semantic-textPrimary font-normal text-lg rounded-3xl border-2 border-primary-darker hover:cursor-pointer hover:bg-primary-lightest px-4 py-2 active:bg-primary-light lg:text-sm lg:px-2 lg:py-1.5' >
-                            <Link to='/login'>
-                                Log in
-                            </Link>
-                        </li>)}
+                                    </li>
+                                    <li className={dropdownDesign} >
+                                        <Link to="/appointment">
+                                            My Appointment
+                                        </Link>
+                                    </li>
+                                    <li className={dropdownDesign} onClick={logout}>
+                                        <Link to="/"> Log out</Link>
+                                    </li>
+                                </ul>
+                            </details>
+                            )
+                            :
+                            (<li
+                                className='text-semantic-textPrimary font-normal text-lg rounded-3xl border-2 border-primary-darker hover:cursor-pointer hover:bg-primary-lightest px-4 py-2 active:bg-primary-light lg:text-sm lg:px-2 lg:py-1.5' >
+                                <Link to='/login'>
+                                    Log in
+                                </Link>
+                            </li>)
+                    }
                     <li className='flex justify-center items-center gap-2 text-white bg-secondary-main py-2.5 px-5 rounded-3xl font-normal text-lg hover:cursor-pointer hover:bg-secondary-dark active:bg-secondary-darker lg:text-sm lg:px-3 lg:py-2 sm:hidden'>
                         <Link to='/booking'>
                             Booking
                         </Link>
                         <span className="material-symbols-outlined font-normal text-sm">arrow_forward_ios</span>
                     </li>
-                </ul>
+                </ul >
             </div >
         </header >
     )

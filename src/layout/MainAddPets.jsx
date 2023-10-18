@@ -7,7 +7,7 @@ export default function MainAddPets() {
             <div className='flex sm:text-xl lg:text-2xl text-3xl justify-center text-secondary-darker'>Add My pet</div>
             <div className='flex justify-end pr-56'>
             </div>
-            <div>
+            <div className="bg-slate-50 h-screen">
                 <AddpetsForm />
             </div>
         </div>
