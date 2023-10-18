@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { useState, useEffect, useRef } from "react"
 import { useAuth } from "../../hooks/use_auth"
 import Loading from "../../components/Loading"
+import defaultImage from '../../assets/paw.png'
 
 
 const AddPetSchema = Joi.object({
@@ -112,7 +113,8 @@ export default function AddpetsForm() {
                             onClick={() => { inputEl.current.click() }}
                             className="w-[200px] h-[200px] overflow-hidden rounded-full shadow-md">
                             {file ? (<img src={URL.createObjectURL(file)} alt="post" className='object-cover h-full aspect-square' />) :
-                                (<span className="material-symbols-outlined w-[200px] h-[200px] flex m-auto sm:h-24 sm:w-24 rounded-full  justify-center bg-primary-light text-white items-center sm:text-[60px] text-[80px] font-extralight">person</span>)}
+
+                                (<img src={defaultImage} className="object-cover h-full aspect-square" />)}
                         </div>
                     </div>
                     <div className="flex flex-col justify-center items-center gap-4 pt-10">
