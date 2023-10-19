@@ -28,6 +28,7 @@ export default function AuthContextProvider({ children }) {
         }
     }, []);
 
+
     const login = async credential => {
         // console.log(credential)
         try {
@@ -63,7 +64,7 @@ export default function AuthContextProvider({ children }) {
         console.log('first')
         try {
             const res = await axios.patch('/user', updateProfile)
-            setAuthUser(({ ...authUser, ...res.data.updateProfile, }))
+            setAuthUser(({ ...authUser, ...res.data.updateProfile }))
 
             Swal.fire({
                 icon: 'success',
@@ -90,6 +91,6 @@ export default function AuthContextProvider({ children }) {
 
 
     return (
-        <AuthContext.Provider value={{ login, authUser, logout, initialLoading, register, editProfile, AddPet }}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ login, authUser, setAuthUser, logout, initialLoading, register, editProfile, AddPet }}>{children}</AuthContext.Provider>
     )
 }

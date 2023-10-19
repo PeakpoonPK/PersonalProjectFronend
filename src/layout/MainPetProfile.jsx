@@ -4,7 +4,7 @@ import { useAuth } from '../hooks/use_auth';
 
 export default function MainPetProfile() {
     const { authUser } = useAuth()
-    console.log(authUser)
+
     return (
         <div className='flex flex-col w-[75%] lg:pt-24 pt-32  absolute right-0 gap-8 bg-slate-50 h-' >
             <div className='flex sm:text-xl lg:text-2xl text-3xl justify-center text-semantic-textPrimary'>My pets</div>

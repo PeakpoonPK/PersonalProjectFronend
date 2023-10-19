@@ -40,7 +40,7 @@ const router = createBrowserRouter([
             { path: '/profile/:profileId/editProfile', element: <EditProfilePage /> },
             { path: '/pets/:profileId', element: <PetPage /> },
             { path: '/pets/add/:profileId', element: <AddPetPage /> },
-            { path: '/pets/editpet/:profileId', element: <EditPetPage /> },
+            { path: '/pets/editpet/:petId', element: <EditPetPage /> },
             { path: '/appointment', element: <MyAppointmentPage /> }
         ]
     },

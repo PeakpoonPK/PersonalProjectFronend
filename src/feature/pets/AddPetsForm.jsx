@@ -38,7 +38,6 @@ export default function AddpetsForm() {
     const { authUser } = useAuth()
 
 
-
     const [petInput, setPetInput] = useState({
         petName: '',
         breed: '',
