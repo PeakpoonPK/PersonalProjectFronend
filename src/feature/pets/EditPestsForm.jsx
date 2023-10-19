@@ -57,13 +57,11 @@ export default function EditPetsForm() {
 
     const editPet = async (updatePet) => {
         try {
-            console.log('wwww')
+
             const res = await axios.patch(`/pets/${selectedPet.id}`, updatePet)
             console.log(res.data.updatePet)
-            const newUserInfo = { ...authUser, Pets: [res.data.updatePet] }
-            console.log(newUserInfo)
-            // const updatePet = { ...res.data.pet }
-            setAuthUser(newUserInfo)
+            // const newUserInfo = { ...authUser, Pets: [res.data.updatePet] }
+            // setAuthUser(newUserInfo)
             Swal.fire({
                 icon: 'success',
                 title: 'Update My Pet SuccessFul!'
@@ -100,7 +98,6 @@ export default function EditPetsForm() {
             setLoading(true)
             await editPet(formData)
             Navigate(`/pets/${authUser.id}`)
-
         } catch (err) {
             console.log(err)
         } finally {
