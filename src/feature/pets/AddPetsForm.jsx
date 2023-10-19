@@ -62,6 +62,7 @@ export default function AddpetsForm() {
         { id: 5, title: 'Allergy', placeholder: 'Allergy', value: `${petInput.drugAllergy}`, name: 'drugAllergy', errorInput: error.drugAllergy || null },
         { id: 6, title: 'Other', placeholder: 'Other', value: `${petInput.Other}`, name: 'Other', errorInput: error.Other || null },
     ]
+
     const handleChangeInput = e => {
         setPetInput({ ...petInput, [e.target.name]: e.target.value })
     }
