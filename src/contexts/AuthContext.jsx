@@ -61,7 +61,6 @@ export default function AuthContextProvider({ children }) {
     }
 
     const editProfile = async (updateProfile) => {
-        console.log('first')
         try {
             const res = await axios.patch('/user', updateProfile)
             setAuthUser(({ ...authUser, ...res.data.updateProfile }))

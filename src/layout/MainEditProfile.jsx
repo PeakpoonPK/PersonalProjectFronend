@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Joi from 'joi'
 import Loading from '../components/Loading'
 import EditInputForm from '../feature/user/EditInputForm';
+import InputErrorMessage from '../feature/auth/InputErrorMessage';
 
 const EditProfilePrismaSchema = Joi.object({
     firstName: Joi.string().trim().allow(null, ''),
@@ -36,15 +37,7 @@ export default function EditProfile({ children, title, initialSrc }) {
     const inputEl = useRef(null);
     const { authUser } = useAuth();
 
-    const editProfileInput = [
-        { id: 1, title: 'FirstName', placeholder: `${authUser.firstName || '-'}`, value: `${authUser.firstName}`, name: 'firstName', error: `${error.firstName}` },
-        { id: 2, title: 'Last name', placeholder: `${authUser.lastName || '-'}`, value: `${authUser.lastName}`, name: 'lastName', error: `${error.lastName}` },
-        { id: 3, title: 'Mobile No.1', placeholder: `${authUser.mobile_1 || '-'}`, value: `${authUser.mobile_1}`, name: 'mobile_1', error: `${error.mobile_1}` },
-        { id: 4, title: 'Mobile No.2', placeholder: `${authUser.mobile_2 || '-'}`, value: `${authUser.mobile_2}`, name: 'mobile_2', error: `${error.mobile_2}` },
-        { id: 5, title: 'E-mail', placeholder: `${authUser.email || '-'} `, value: `${authUser.email}`, name: 'email', error: `${error.email}` },
-        { id: 6, title: 'Line ID', placeholder: `${authUser.lineId || '-'}`, value: `${authUser.lineId}`, name: 'lineId', error: `${error.lineId}` },
-        { id: 7, title: 'Address', placeholder: `${authUser.address || '-'}`, value: `${authUser.address}`, name: 'address', error: `${error.address}` },
-    ]
+
     useEffect(() => {
         setInput({ ...authUser })
     }, [])
@@ -61,7 +54,14 @@ export default function EditProfile({ children, title, initialSrc }) {
     })
     const { editProfile } = useAuth();
     const Navigate = useNavigate()
-
+    const editProfileInput = [
+        { id: 1, title: 'FirstName', placeholder: `${authUser.firstName || '-'}`, value: `${input.firstName}`, name: 'firstName', errorInput: `${error.firstName}` },
+        { id: 2, title: 'Last name', placeholder: `${authUser.lastName || '-'}`, value: `${input.lastName}`, name: 'lastName', errorInput: `${error.lastName}` },
+        { id: 3, title: 'Mobile No.1', placeholder: `${authUser.mobile_1 || '-'}`, value: `${input.mobile_1}`, name: 'mobile_1', errorInput: `${error.mobile_1}` },
+        { id: 4, title: 'Mobile No.2', placeholder: `${authUser.mobile_2 || '-'}`, value: `${input.mobile_2}`, name: 'mobile_2', errorInput: `${error.mobile_2}` },
+        { id: 5, title: 'Line ID', placeholder: `${authUser.lineId || '-'}`, value: `${input.lineId}`, name: 'lineId', errorInput: `${error.lineId}` },
+        { id: 6, title: 'Address', placeholder: `${authUser.address || '-'}`, value: `${input.address}`, name: 'address', errorInput: `${error.address}` },
+    ]
     const handleChangeInput = e => {
         setInput({ ...input, [e.target.name]: e.target.value })
     }
@@ -69,12 +69,12 @@ export default function EditProfile({ children, title, initialSrc }) {
 
     const handleSubmitForm = async (e) => {
         try {
-
             const inputCheck = { ...input }
             delete inputCheck.id
             delete inputCheck.email
             delete inputCheck.profileImage
             delete inputCheck.password
+            delete inputCheck.Pets
 
             e.preventDefault();
             const validationError = validateEditProfile(inputCheck);
@@ -108,7 +108,7 @@ export default function EditProfile({ children, title, initialSrc }) {
             </div>
             <form
                 onSubmit={handleSubmitForm}
-                className='flex flex-col gap-8 mt-6 border-4 sm:border-2 rounded-3xl border-secondary-darker justify-center lg:w-[560px] sm:w-[240px] w-[600px] m-auto relative pb-24 h-[640px]'>
+                className='flex flex-col gap-8 mt-6 border-4 sm:border-2 rounded-3xl border-secondary-darker justify-center lg:w-[560px] sm:w-[240px] w-[600px] m-auto relative pb-24 '>
                 {loading ? <Loading /> :
                     <>
                         <div className='flex sm:pt-4 pt-8'>
@@ -146,11 +146,11 @@ export default function EditProfile({ children, title, initialSrc }) {
                         </div>
                         <div className='flex flex-col gap-4 sm:pl-4 lg:pl-10 pl-10 sm:text-sm lg:text-lg text-xl'>
                             {editProfileInput.map(el => (
-                                <EditInputForm key={el.id} title={el.title} placeholder={el.placeholder} value={el.value} name={el.name} error={el.error} onChange={handleChangeInput} />
+                                <EditInputForm key={el.id} title={el.title} placeholder={el.placeholder} value={el.value} name={el.name} onChange={handleChangeInput} />
+
                             ))}
                         </div>
                         <button
-
                             className='flex justify-cente absolute bottom-4 right-4 font-normal bg-primary-darker rounded-2xl text-white py-2 px-4 hover:cursor-pointer hover:bg-primary-main active:bg-primary-dark'>
                             Update Profile
                         </button></>}
