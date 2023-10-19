@@ -54,14 +54,16 @@ export default function EditProfile({ children, title, initialSrc }) {
     })
     const { editProfile } = useAuth();
     const Navigate = useNavigate()
+
     const editProfileInput = [
-        { id: 1, title: 'FirstName', placeholder: `${authUser.firstName || '-'}`, value: `${input.firstName}`, name: 'firstName', errorInput: `${error.firstName}` },
-        { id: 2, title: 'Last name', placeholder: `${authUser.lastName || '-'}`, value: `${input.lastName}`, name: 'lastName', errorInput: `${error.lastName}` },
-        { id: 3, title: 'Mobile No.1', placeholder: `${authUser.mobile_1 || '-'}`, value: `${input.mobile_1}`, name: 'mobile_1', errorInput: `${error.mobile_1}` },
-        { id: 4, title: 'Mobile No.2', placeholder: `${authUser.mobile_2 || '-'}`, value: `${input.mobile_2}`, name: 'mobile_2', errorInput: `${error.mobile_2}` },
-        { id: 5, title: 'Line ID', placeholder: `${authUser.lineId || '-'}`, value: `${input.lineId}`, name: 'lineId', errorInput: `${error.lineId}` },
-        { id: 6, title: 'Address', placeholder: `${authUser.address || '-'}`, value: `${input.address}`, name: 'address', errorInput: `${error.address}` },
+        { id: 1, title: 'FirstName', placeholder: `${authUser.firstName || '-'}`, value: `${input.firstName}`, name: 'firstName', errorInput: error.firstName || null },
+        { id: 2, title: 'Last name', placeholder: `${authUser.lastName || '-'}`, value: `${input.lastName}`, name: 'lastName', errorInput: error.lastName || null },
+        { id: 3, title: 'Mobile No.1', placeholder: `${authUser.mobile_1 || '-'}`, value: `${input.mobile_1}`, name: 'mobile_1', errorInput: error.mobile_1 || null },
+        { id: 4, title: 'Mobile No.2', placeholder: `${authUser.mobile_2 || '-'}`, value: `${input.mobile_2}`, name: 'mobile_2', errorInput: error.mobile_2 || null },
+        { id: 5, title: 'Line ID', placeholder: `${authUser.lineId || '-'}`, value: `${input.lineId}`, name: 'lineId', errorInput: error.lineId || null },
+        { id: 6, title: 'Address', placeholder: `${authUser.address || '-'}`, value: `${input.address}`, name: 'address', errorInput: error.address || null },
     ]
+
     const handleChangeInput = e => {
         setInput({ ...input, [e.target.name]: e.target.value })
     }
@@ -78,11 +80,13 @@ export default function EditProfile({ children, title, initialSrc }) {
 
             e.preventDefault();
             const validationError = validateEditProfile(inputCheck);
+
             if (validationError) {
                 console.log(validationError)
                 return setError(validationError);
             }
             console.log(file)
+
             const formData = new FormData();
             if (file) {
                 formData.append('profileImage', file)
@@ -144,9 +148,10 @@ export default function EditProfile({ children, title, initialSrc }) {
                                 }
                             </div>
                         </div>
+
                         <div className='flex flex-col gap-4 sm:pl-4 lg:pl-10 pl-10 sm:text-sm lg:text-lg text-xl'>
                             {editProfileInput.map(el => (
-                                <EditInputForm key={el.id} title={el.title} placeholder={el.placeholder} value={el.value} name={el.name} onChange={handleChangeInput} />
+                                <EditInputForm key={el.id} title={el.title} placeholder={el.placeholder} value={el.value} name={el.name} onChange={handleChangeInput} errorInput={el.errorInput} />
 
                             ))}
                         </div>

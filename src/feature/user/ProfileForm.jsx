@@ -36,6 +36,7 @@ export default function ProfileForm() {
                     }
                 </div>
                 <div className='flex flex-col gap-4 sm:pl-4 lg:pl-10 pl-10 sm:text-sm lg:text-lg text-xl'>
+
                     {dataInputProfile.map(el =>
                         <InputForm key={el.id} title={el.title} data={el.data} />)}
                 </div>

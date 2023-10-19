@@ -4,14 +4,10 @@ import { useEffect } from 'react'
 import axios from '../../config/axios'
 import { Link, useParams } from 'react-router-dom'
 import { useAuth } from '../../hooks/use_auth'
+import InputPetForm from './InputPetForm'
 
 export default function PetsBox() {
     const [allPet, setAllPet] = useState([])
-    const { authUser, setAuthUser } = useAuth();
-    const { petId } = useParams()
-
-
-
 
     useEffect(() => {
         axios.get('/pets/all')
@@ -22,6 +18,14 @@ export default function PetsBox() {
     return (
         <div className='flex flex-col'>
             {allPet.map((el, id) => {
+                const inputPet = [
+                    { id: 1, title: 'Name', data: `${el.petName || "-"}` },
+                    { id: 2, title: 'Sex', data: `${el.sex || "-"}` },
+                    { id: 3, title: 'Allery', data: `${el.drugAllergy || "-"}` },
+                    { id: 4, title: 'Other', data: `${el.Other || "-"}` },
+                    { id: 5, title: 'Breed', data: `${el.breed || "-"}` },
+                    { id: 6, title: 'Age', data: `${el.age || "-"}` },
+                ]
                 return <div
                     key={id}
                     className='p-2 flex'>
@@ -31,30 +35,9 @@ export default function PetsBox() {
                                 : (<img src={defaultImage} alt="pet" className='object-cover h-full aspect-square' />)}
                         </div>
                         <div className='pl-10 grid grid-rows-4 grid-flow-col'>
-                            <div className='flex gap-4'>
-                                <label className='text-base font-thin text-primary-darker'>Name</label>
-                                <span className='flex border-b-2 border-primary-darker w-[180px] m-auto justify-center text-black mr-6'>{el.petName || "-"}</span>
-                            </div>
-                            <div className='flex gap-4'>
-                                <label className='text-base font-thin text-primary-darker'>Sex</label>
-                                <span className='flex border-b-2 border-primary-darker w-[180px] m-auto justify-center text-black mr-6'>{el.sex || "-"}</span>
-                            </div>
-                            <div className='flex gap-4'>
-                                <label className='text-base font-thin text-primary-darker'>Allery</label>
-                                <span className='flex border-b-2 border-primary-darker w-[180px] m-auto justify-center text-black mr-6'>{el.allergy || "-"} </span>
-                            </div>
-                            <div className='flex gap-4'>
-                                <label className='text-base font-thin text-primary-darker'>Other</label>
-                                <span className='flex border-b-2 border-primary-darker w-[180px] m-auto justify-center text-black mr-6'>{el.Other || "-"} </span>
-                            </div>
-                            <div className='flex gap-4'>
-                                <label className='text-base font-thin text-primary-darker'>Breed</label>
-                                <span className='flex border-b-2 border-primary-darker w-[180px] m-auto justify-center text-black mr-6'>{el.breed || "-"} </span>
-                            </div>
-                            <div className='flex gap-4'>
-                                <label className='text-base font-thin text-primary-darker'>Age</label>
-                                <span className='flex border-b-2 border-primary-darker w-[180px] m-auto justify-center text-black mr-6'>{el.age || "-"} </span>
-                            </div>
+                            {inputPet.map(pet =>
+                                <InputPetForm key={pet.id} title={pet.title} data={pet.data} />
+                            )}
                             <div className='flex flex-col row-span-2 relative text-sm'>
                                 <button className='flex justify-cente absolute bottom-10 right-4 font-normal bg-secondary-main rounded-2xl text-white py-1.5 px-4 hover:cursor-pointer hover:bg-secondary-dark active:bg-secondary-darker'><Link to={`/pets/editpet/${el.id}`}>Edit</Link></button>
                                 <button

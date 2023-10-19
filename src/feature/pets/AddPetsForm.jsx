@@ -1,10 +1,10 @@
-import InputErrorMessage from "../auth/InputErrorMessage"
 import Joi from 'joi'
 import { useNavigate } from "react-router-dom"
 import { useState, useEffect, useRef } from "react"
 import { useAuth } from "../../hooks/use_auth"
 import Loading from "../../components/Loading"
 import defaultImage from '../../assets/paw.png'
+import EditInputForm from "../user/EditInputForm"
 
 
 const AddPetSchema = Joi.object({
@@ -38,6 +38,8 @@ export default function AddpetsForm() {
     const { authUser } = useAuth()
 
 
+
+
     const [petInput, setPetInput] = useState({
         petName: '',
         breed: '',
@@ -52,6 +54,14 @@ export default function AddpetsForm() {
     const Navigate = useNavigate()
     const [error, setError] = useState({});
 
+    const addPetInput = [
+        { id: 1, title: 'PetName', placeholder: 'PetName', value: `${petInput.petName}`, name: 'petName', errorInput: error.petName || null },
+        { id: 2, title: 'Sex', placeholder: 'Sex', value: `${petInput.sex}`, name: 'sex', errorInput: error.sex || null },
+        { id: 3, title: 'breed', placeholder: 'breed', value: `${petInput.breed}`, name: 'breed', errorInput: error.breed || null },
+        { id: 4, title: 'Age', placeholder: 'Age', value: `${petInput.age}`, name: 'age', errorInput: error.age || null },
+        { id: 5, title: 'Allergy', placeholder: 'Allergy', value: `${petInput.drugAllergy}`, name: 'drugAllergy', errorInput: error.drugAllergy || null },
+        { id: 6, title: 'Other', placeholder: 'Other', value: `${petInput.Other}`, name: 'Other', errorInput: error.Other || null },
+    ]
     const handleChangeInput = e => {
         setPetInput({ ...petInput, [e.target.name]: e.target.value })
     }
@@ -117,66 +127,9 @@ export default function AddpetsForm() {
                         </div>
                     </div>
                     <div className="flex flex-col justify-center items-center gap-4 pt-10">
-                        <div className='flex flex-col '>
-                            <input
-                                type='text'
-                                placeholder='Name'
-                                value={petInput.petName}
-                                name='petName'
-                                onChange={handleChangeInput}
-                                className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 lg:w-64 ${error.petName ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
-                            {error && <InputErrorMessage message={error.petName} />}
-                        </div>
-                        <div className='flex flex-col'>
-                            <input
-                                type='sex'
-                                placeholder='Sex'
-                                value={petInput.sex}
-                                name='sex'
-                                onChange={handleChangeInput}
-                                className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 lg:w-64 ${error.sex ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
-                            {error && <InputErrorMessage message={error.sex} />}
-                        </div>
-                        <div className='flex flex-col'>
-                            <input
-                                type='breed'
-                                placeholder='Breed'
-                                value={petInput.breed}
-                                name='breed'
-                                onChange={handleChangeInput}
-                                className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 lg:w-64 ${error.breed ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
-                            {error && <InputErrorMessage message={error.breed} />}
-                        </div>
-                        <div className='flex flex-col'>
-                            <input
-                                type='age'
-                                placeholder='age'
-                                value={petInput.age}
-                                name='age'
-                                onChange={handleChangeInput}
-                                className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 lg:w-64 ${error.age ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
-                            {error && <InputErrorMessage message={error.age} />}
-                        </div>
-                        <div className='flex flex-col'>
-                            <input
-                                type='drugAllergy'
-                                placeholder='drugAllergy'
-                                value={petInput.drugAllergy}
-                                name='drugAllergy'
-                                onChange={handleChangeInput}
-                                className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 lg:w-64 ${error.drugAllergy ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
-                            {error && <InputErrorMessage message={error.drugAllergy} />}
-                        </div>
-                        <div className='flex flex-col'>
-                            <input
-                                type='Other'
-                                placeholder='Other'
-                                value={petInput.Other}
-                                name='Other'
-                                onChange={handleChangeInput}
-                                className={`outline-none bg-slate-50 text-xl font-normal text-black border-b-2 border-primary-darker w-96 lg:w-64 ${error.Other ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}></input>
-                            {error && <InputErrorMessage message={error.Other} />}
-                        </div>
+                        {addPetInput.map(el =>
+                            <EditInputForm key={el.id} title={el.title} placeholder={el.placeholder} value={el.value} name={el.name} errorInput={el.errorInput} onChange={handleChangeInput} />
+                        )}
                     </div>
                     <button className='flex absolute justify-center bottom-4 right-10 lg:left-[80px] text-xl font-normal bg-primary-darker rounded-2xl text-white py-3 px-10 hover:cursor-pointer hover:bg-primary-main active:bg-primary-dark'>Add</button>
                 </div>)}
