@@ -2,8 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/use_auth';
 import { useState, useEffect, useRef } from 'react';
 import Joi from 'joi'
-import InputErrorMessage from '../feature/auth/InputErrorMessage';
 import Loading from '../components/Loading'
+import EditInputForm from '../feature/user/EditInputForm';
 
 const EditProfilePrismaSchema = Joi.object({
     firstName: Joi.string().trim().allow(null, ''),
@@ -33,10 +33,18 @@ const validateEditProfile = input => {
 export default function EditProfile({ children, title, initialSrc }) {
     const [file, setFile] = useState(null);
     const [loading, setLoading] = useState(false);
-    // if (file) console.log(URL.createObjectURL(file))
     const inputEl = useRef(null);
     const { authUser } = useAuth();
 
+    const editProfileInput = [
+        { id: 1, title: 'FirstName', placeholder: `${authUser.firstName || '-'}`, value: `${authUser.firstName}`, name: 'firstName', error: `${error.firstName}` },
+        { id: 2, title: 'Last name', placeholder: `${authUser.lastName || '-'}`, value: `${authUser.lastName}`, name: 'lastName', error: `${error.lastName}` },
+        { id: 3, title: 'Mobile No.1', placeholder: `${authUser.mobile_1 || '-'}`, value: `${authUser.mobile_1}`, name: 'mobile_1', error: `${error.mobile_1}` },
+        { id: 4, title: 'Mobile No.2', placeholder: `${authUser.mobile_2 || '-'}`, value: `${authUser.mobile_2}`, name: 'mobile_2', error: `${error.mobile_2}` },
+        { id: 5, title: 'E-mail', placeholder: `${authUser.email || '-'} `, value: `${authUser.email}`, name: 'email', error: `${error.email}` },
+        { id: 6, title: 'Line ID', placeholder: `${authUser.lineId || '-'}`, value: `${authUser.lineId}`, name: 'lineId', error: `${error.lineId}` },
+        { id: 7, title: 'Address', placeholder: `${authUser.address || '-'}`, value: `${authUser.address}`, name: 'address', error: `${error.address}` },
+    ]
     useEffect(() => {
         setInput({ ...authUser })
     }, [])
@@ -57,8 +65,11 @@ export default function EditProfile({ children, title, initialSrc }) {
     const handleChangeInput = e => {
         setInput({ ...input, [e.target.name]: e.target.value })
     }
+
+
     const handleSubmitForm = async (e) => {
         try {
+
             const inputCheck = { ...input }
             delete inputCheck.id
             delete inputCheck.email
@@ -88,7 +99,6 @@ export default function EditProfile({ children, title, initialSrc }) {
         } finally {
             setLoading(false)
         }
-
     };
 
     return (
@@ -97,122 +107,47 @@ export default function EditProfile({ children, title, initialSrc }) {
                 Edit Profile
             </div>
             <form
-
                 onSubmit={handleSubmitForm}
                 className='flex flex-col gap-8 mt-6 border-4 sm:border-2 rounded-3xl border-secondary-darker justify-center lg:w-[560px] sm:w-[240px] w-[600px] m-auto relative pb-24 h-[640px]'>
                 {loading ? <Loading /> :
-                    <><div className='flex sm:pt-4 pt-8'>
-                        <input
-                            type="file"
-                            className="hidden"
-                            ref={inputEl}
-                            onChange={e => {
-                                if (e.target.files[0]) {
-                                    setFile(e.target.files[0])
+                    <>
+                        <div className='flex sm:pt-4 pt-8'>
+                            <input
+                                type="file"
+                                className="hidden"
+                                ref={inputEl}
+                                onChange={e => {
+                                    if (e.target.files[0]) {
+                                        setFile(e.target.files[0])
+                                    }
+                                }}
+                            />
+                            <div className="flex justify-center items-center">
+                                {authUser.profileImage ? (
+                                    <div className='pl-[200px]'>
+                                        <div
+                                            onClick={() => { inputEl.current.click() }}
+                                            className="w-[200px] h-[200px] overflow-hidden rounded-full shadow-md">
+                                            {file ? <img src={URL.createObjectURL(file)} alt="post" className='object-cover h-full aspect-square' /> :
+                                                <img src={authUser.profileImage} alt='profileImage' className='object-cover h-full aspect-square' ></img>}
+                                        </div>
+                                    </div>
+                                ) :
+                                    (<div className='pl-[220px]'>
+                                        <div onClick={() => { inputEl.current.click() }}
+                                            className='w-[200px] h-[200px] overflow-hidden rounded-full shadow-md'>
+                                            {file ? (<img src={URL.createObjectURL(file)} alt="post" className='object-cover h-full aspect-square' />) :
+                                                (<span className="material-symbols-outlined w-[200px] h-[200px] flex m-auto sm:h-24 sm:w-24 rounded-full  justify-center bg-primary-light text-white items-center sm:text-[60px] text-[80px] font-extralight">person</span>)}
+                                        </div>
+                                    </div>
+                                    )
                                 }
-                            }}
-                        />
-                        <div className="flex justify-center items-center">
-                            {authUser.profileImage ? (
-                                <div className='pl-[200px]'>
-                                    <div
-                                        onClick={() => { inputEl.current.click() }}
-                                        className="w-[200px] h-[200px] overflow-hidden rounded-full shadow-md">
-                                        {file ? <img src={URL.createObjectURL(file)} alt="post" className='object-cover h-full aspect-square' /> :
-                                            <img src={authUser.profileImage} alt='profileImage' className='object-cover h-full aspect-square' ></img>}
-                                    </div>
-                                </div>
-                            ) :
-                                (<div className='pl-[220px]'>
-                                    <div onClick={() => { inputEl.current.click() }}
-                                        className='w-[200px] h-[200px] overflow-hidden rounded-full shadow-md'>
-                                        {file ? (<img src={URL.createObjectURL(file)} alt="post" className='object-cover h-full aspect-square' />) :
-                                            (<span className="material-symbols-outlined w-[200px] h-[200px] flex m-auto sm:h-24 sm:w-24 rounded-full  justify-center bg-primary-light text-white items-center sm:text-[60px] text-[80px] font-extralight">person</span>)}
-                                    </div>
-                                </div>
-                                )
-                            }
+                            </div>
                         </div>
-                    </div>
                         <div className='flex flex-col gap-4 sm:pl-4 lg:pl-10 pl-10 sm:text-sm lg:text-lg text-xl'>
-                            <div className='flex sm:flex-col gap-2'>
-                                <label className='font-semibold text-semantic-textPrimary'>First name</label>
-                                <div className='flex flex-col m-auto justify-center mr-6'>
-                                    <input
-                                        className={` bg-slate-50 outline-none flex border-b-2 border-primary-darker w-[360px] m-auto justify-center text-black mr-6 ${error.email ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}
-                                        placeholder={authUser.firstName}
-                                        value={input.firstName}
-                                        name='firstName'
-                                        onChange={handleChangeInput}
-                                    ></input>
-                                    {error && <InputErrorMessage message={error.firstName} />}
-                                </div>
-                            </div>
-                            <div className='flex sm:flex-col gap-2'>
-                                <label className='font-semibold text-semantic-textPrimary'>Last name</label>
-                                <div className='flex flex-col m-auto justify-center mr-6'>
-                                    <input
-                                        className={` bg-slate-50 outline-none flex border-b-2 border-primary-darker w-[360px] m-auto justify-center text-black mr-6 ${error.email ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}
-                                        placeholder={authUser.lastName}
-                                        value={input.lastName}
-                                        name='lastName'
-                                        onChange={handleChangeInput}
-                                    ></input>
-                                    {error && <InputErrorMessage message={error.lastName} />}
-                                </div>
-                            </div>
-                            <div className='flex sm:flex-col gap-2'>
-                                <label className='font-semibold text-semantic-textPrimary'>Mobile No.1</label>
-                                <div className='flex flex-col m-auto justify-center mr-6'>
-                                    <input
-                                        className={` bg-slate-50 outline-none flex border-b-2 border-primary-darker w-[360px] m-auto justify-center text-black mr-6 ${error.email ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}
-                                        placeholder={authUser.mobile_1}
-                                        value={input.mobile_1}
-                                        name='mobile_1'
-                                        onChange={handleChangeInput}
-                                    ></input>
-                                    {error && <InputErrorMessage message={error.mobile_1} />}
-                                </div>
-                            </div>
-                            <div className='flex sm:flex-col gap-2'>
-                                <label className='font-semibold text-semantic-textPrimary'>Mobile No.2</label>
-                                <div className='flex flex-col m-auto justify-center mr-6'>
-                                    <input
-                                        className={` bg-slate-50 outline-none flex border-b-2 border-primary-darker w-[360px] m-auto justify-center text-black mr-6 ${error.email ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}
-                                        placeholder={authUser.mobile_2}
-                                        value={input.mobile_2 || ""}
-                                        name='mobile_2'
-                                        onChange={handleChangeInput}
-                                    ></input>
-                                    {error && <InputErrorMessage message={error.mobile_2} />}
-                                </div>
-                            </div>
-                            <div className='flex sm:flex-col gap-2'>
-                                <label className='font-semibold text-semantic-textPrimary'>Line ID</label>
-                                <div className='flex flex-col m-auto justify-center mr-6'>
-                                    <input
-                                        className={` bg-slate-50 outline-none flex border-b-2 border-primary-darker w-[360px] m-auto justify-center text-black mr-6 ${error.email ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}
-                                        placeholder={authUser.lineId}
-                                        value={input.lineId || ""}
-                                        name='lineId'
-                                        onChange={handleChangeInput}
-                                    ></input>
-                                    {error && <InputErrorMessage message={error.lineId} />}
-                                </div>
-                            </div>
-                            <div className='flex sm:flex-col gap-2'>
-                                <label className='font-semibold text-semantic-textPrimary'>Address</label>
-                                <div className='flex flex-col m-auto justify-center mr-6'>
-                                    <input
-                                        className={` bg-slate-50 outline-none flex border-b-2 border-primary-darker w-[360px] m-auto justify-center text-black mr-6 ${error.email ? 'border-b-2 border-error-main' : ' focus:border-b-2 focus:border-error-pressed'}`}
-                                        placeholder={authUser.address}
-                                        value={input.address || ""}
-                                        name='address'
-                                        onChange={handleChangeInput}
-                                    ></input>
-                                    {error && <InputErrorMessage message={error.address} />}
-                                </div>
-                            </div>
+                            {editProfileInput.map(el => (
+                                <EditInputForm key={el.id} title={el.title} placeholder={el.placeholder} value={el.value} name={el.name} error={el.error} onChange={handleChangeInput} />
+                            ))}
                         </div>
                         <button
 

@@ -25,13 +25,15 @@ export default function Header() {
         { id: 8, to: '', title: 'Acupuncture' },
         { id: 9, to: '', title: 'Ophthalmology' }
     ]
-
-    const manuProfileBar = [
-        { id: 1, to: `/profile/${authUser.id}`, title: 'Profile' },
-        { id: 2, to: `/pets/${authUser.id}`, title: 'My Pets' },
-        { id: 3, to: "/appointment", title: 'My Appointment' },
-        { id: 4, to: "/", title: 'Log out', onClick: logout }
-    ]
+    let manuProfileBar = []
+    if (authUser) {
+        manuProfileBar = [
+            { id: 1, to: `/profile/${authUser.id}`, title: 'Profile' },
+            { id: 2, to: `/pets/${authUser.id}`, title: 'My Pets' },
+            { id: 3, to: "/appointment", title: 'My Appointment' },
+            { id: 4, to: "/", title: 'Log out', onClick: logout }
+        ]
+    }
 
     return (
         <header
