@@ -2,8 +2,7 @@ import { useState } from 'react'
 import defaultImage from '../../assets/paw.png'
 import { useEffect } from 'react'
 import axios from '../../config/axios'
-import { Link, useParams } from 'react-router-dom'
-import { useAuth } from '../../hooks/use_auth'
+import { Link } from 'react-router-dom'
 import InputPetForm from './InputPetForm'
 
 export default function PetsBox() {
@@ -33,6 +32,7 @@ export default function PetsBox() {
             .then((res) => setAllPet(res.data.pet))
             .catch(err => console.log(err))
     }, [])
+
 
     return (
         <div className='flex flex-col'>
