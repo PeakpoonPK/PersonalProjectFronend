@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import PetsForm from '../feature/pets/PetsForm';
 import { useAuth } from '../hooks/use_auth';
+import DoctorForm from '../feature/Doctor/DoctorForm'
 
 
 
@@ -16,7 +17,7 @@ export default function MainDoctorProfile() {
                 </button>
             </div>
             <div className='h-full bg-slate-50 pb-10'>
-
+                <DoctorForm />
             </div>
         </div>
     )

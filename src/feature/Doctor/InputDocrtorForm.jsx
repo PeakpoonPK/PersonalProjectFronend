@@ -1,6 +1,6 @@
 
 
-export default function InputPetForm({ title, data }) {
+export default function InputDoctorForm({ title, data }) {
     return (
         <div>
             <div className='flex gap-4'>

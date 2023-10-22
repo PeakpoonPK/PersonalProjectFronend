@@ -2,25 +2,20 @@
 import Joi from 'joi'
 import { useNavigate, useParams } from "react-router-dom"
 import { useState, useEffect, useRef } from "react"
-import { useAuth } from "../../hooks/use_auth"
 import Loading from "../../components/Loading"
-import defaultImage from '../../assets/paw.png'
+import defaultImage from '../../assets/doctor.png'
 import axios from "../../config/axios"
 import Swal from "sweetalert2"
 import EditInputForm from "../user/EditInputForm"
 
-const EditPetSchema = Joi.object({
-    petName: Joi.string().trim().allow(null, ''),
-    breed: Joi.string().trim().allow(null, ''),
-    age: Joi.string().trim().allow(null, ''),
-    sex: Joi.string().trim().allow(null, ''),
-    drugAllergy: Joi.string().trim().allow(null, ''),
-    Other: Joi.string().trim().allow(null, ''),
-    userId: Joi.number().allow(null, '')
+const EditDoctorSchema = Joi.object({
+    firstNameDoctor: Joi.string().trim(),
+    lastNameDoctor: Joi.string().trim(),
+    specialist: Joi.string().trim(),
 })
 
-const validateEditPet = input => {
-    const { error } = EditPetSchema.validate(input, { abortEarly: false });
+const validateEditDoctor = input => {
+    const { error } = EditDoctorSchema.validate(input, { abortEarly: false });
     if (error) {
         const result = error.details.reduce((acc, el) => {
             const { message, path } = el
@@ -31,45 +26,42 @@ const validateEditPet = input => {
     }
 }
 
-
-export default function EditPetsForm() {
-
+export default function EditDoctorForm() {
     const [file, setFile] = useState(null);
     const [loading, setLoading] = useState(false);
     const inputEl = useRef(null);
-    const { authUser } = useAuth();
+    const [doctor, setDoctor] = useState({})
     const [error, setError] = useState({})
 
 
     const [input, setInput] = useState({
-        petName: '',
-        breed: '',
-        sex: '',
-        age: '',
-        Other: '',
-        drugAllergy: '',
-        userId: ''
+        firstName: '',
+        lastName: '',
+        specialist: ''
     })
 
-    const { petId } = useParams()
-    const [selectedPet] = authUser.Pets.filter((el) => (el.id === +petId))
+    const { doctorId } = useParams()
+    // const [selectedDoctor] = Response.doctor.filter((el) => (el.id === +doctorId))
+
 
     const Navigate = useNavigate()
 
-    const editPet = async (updatePet) => {
+
+    const editDoctor = async (updateDoctor) => {
         try {
-            const res = await axios.patch(`/pets/${selectedPet.id}`, updatePet)
-            console.log(res.data.updatePet)
+            const res = await axios.patch(`/admin/${doctorId}`, updateDoctor)
+            console.log(res.data.updateDoctor)
             Swal.fire({
                 icon: 'success',
-                title: 'Update My Pet SuccessFul!'
+                title: 'Update Doctor SuccessFul!'
             })
-            axios.get(`/pets/${petId}`)
-                .then((res) => { setInput(res.data.pet) })
+            axios.get(`/admin/${doctorId}`)
+                .then((res) => { setInput(res.data.doctor) })
         } catch (err) {
             console.log(err)
         }
     }
+
 
     const handleChangeInput = e => {
         setInput({ ...input, [e.target.name]: e.target.value })
@@ -78,26 +70,27 @@ export default function EditPetsForm() {
     const handleSubmitForm = async (e) => {
         try {
             e.preventDefault();
-            const petInput = { ...input }
-            delete petInput.id
-            delete petInput.petImage
+            const doctorInput = { ...input }
+            delete doctorInput.id
+            delete doctorInput.doctorImage
 
-            const validationError = validateEditPet(petInput);
+
+            const validationError = validateEditDoctor(doctorInput);
             if (validationError) {
                 console.log(validationError)
                 return setError(validationError);
             }
             const formData = new FormData();
             if (file) {
-                formData.append('petImage', file)
+                formData.append('doctorImage', file)
             }
-            console.log(petInput)
-            formData.append('petData', JSON.stringify(petInput))
+            console.log(doctorInput)
+            formData.append('doctorData', JSON.stringify(doctorInput))
             // console.log(formData.get('petData'))
             setError({});
             setLoading(true)
-            await editPet(formData)
-            Navigate(`/pets/${authUser.id}`)
+            await editDoctor(formData)
+            Navigate(`/admin/doctor`)
         } catch (err) {
             console.log(err)
         } finally {
@@ -106,21 +99,23 @@ export default function EditPetsForm() {
 
     };
 
+
+
     useEffect(() => {
-        axios.get(`/pets/${petId}`)
+        axios.get(`/admin/${doctorId}`)
             .then((res) => {
-                setInput(res.data.pet)
+                console.log(res.data.doctor)
+                setDoctor(res.data.doctor)
+                setInput(res.data.doctor)
             })
             .catch(err => console.log(err))
     }, [])
 
-    const editPetInput = [
-        { id: 1, title: 'PetName', placeholder: 'PetName', value: `${input.petName}`, name: 'petName', errorInput: error.petName || null },
-        { id: 2, title: 'Sex', placeholder: 'Sex', value: `${input.sex}`, name: 'sex', errorInput: error.sex || null },
-        { id: 3, title: 'breed', placeholder: 'breed', value: `${input.breed}`, name: 'breed', errorInput: error.breed || null },
-        { id: 4, title: 'Age', placeholder: 'Age', value: `${input.age}`, name: 'age', errorInput: error.age || null },
-        { id: 5, title: 'Allergy', placeholder: 'Allergy', value: `${input.drugAllergy}`, name: 'drugAllergy', errorInput: error.drugAllergy || null },
-        { id: 6, title: 'Other', placeholder: 'Other', value: `${input.Other}`, name: 'Other', errorInput: error.Other || null },
+
+    const editDoctorInput = [
+        { id: 1, title: 'First name', placeholder: 'First name', value: `${input.firstNameDoctor}`, name: 'firstNameDoctor', errorInput: error.firstNameDoctor || null },
+        { id: 2, title: 'Last name', placeholder: 'Last name', value: `${input.lastNameDoctor}`, name: 'lastNameDoctor', errorInput: error.lastNameDoctor || null },
+        { id: 3, title: 'Specialist', placeholder: 'Specialist', value: `${input.specialist}`, name: 'specialist', errorInput: error.specialist || null },
     ]
 
 
@@ -142,13 +137,13 @@ export default function EditPetsForm() {
                         }}
                     />
                     <div className="flex justify-center items-center">
-                        {selectedPet.petImage ? (
+                        {doctor.doctorImage ? (
                             <div className=''>
                                 <div
                                     onClick={() => { inputEl.current.click() }}
                                     className="w-[200px] h-[200px] overflow-hidden rounded-full shadow-md">
                                     {file ? <img src={URL.createObjectURL(file)} alt="post" className='object-cover h-full aspect-square' /> :
-                                        <img src={selectedPet.petImage} alt='profileImage' className='object-cover h-full aspect-square' ></img>}
+                                        <img src={doctor.doctorImage} alt='profileImage' className='object-cover h-full aspect-square' ></img>}
                                 </div>
                             </div>
                         ) :
@@ -163,7 +158,7 @@ export default function EditPetsForm() {
                         }
                     </div>
                     <div className="flex flex-col justify-center items-center gap-4 pt-10">
-                        {editPetInput.map(el =>
+                        {editDoctorInput.map(el =>
                             <EditInputForm key={el.id} title={el.title} placeholder={el.placeholder} value={el.value} name={el.name} errorInput={el.errorInput} onChange={handleChangeInput} />
                         )}
                     </div>

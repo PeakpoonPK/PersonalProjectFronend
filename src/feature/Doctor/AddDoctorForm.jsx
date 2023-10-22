@@ -81,7 +81,6 @@ export default function AddDoctorForm() {
                     console.log(err)
                 }
             }
-
             setError({});
             setLoading(true)
             await AddDoctor(formData)
