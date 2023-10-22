@@ -76,6 +76,7 @@ export default function EditProfile({ children, title, initialSrc }) {
             delete inputCheck.email
             delete inputCheck.profileImage
             delete inputCheck.password
+            delete inputCheck.isAdmin
             delete inputCheck.Pets
 
             e.preventDefault();

@@ -34,6 +34,16 @@ export default function Header() {
             { id: 4, to: "/", title: 'Log out', onClick: logout }
         ]
     }
+    //ต้องมาแก้ตรงนี้ให้ isAdmin เป็น null ได้
+    let manuAdminBar = []
+    if (authUser?.isAdmin) {
+        manuAdminBar = [
+            { id: 1, to: `/admin/doctor`, title: 'Doctor' },
+            { id: 2, to: `/`, title: 'All Appointment' },
+            { id: 3, to: "/", title: 'Log out', onClick: logout }
+        ]
+    }
+
 
     return (
         <header
@@ -82,11 +92,17 @@ export default function Header() {
                                     <span> {authUser.firstName}</span>
                                     <span className="material-symbols-outlined">keyboard_arrow_down</span>
                                 </summary>
-                                <ul tabIndex={0} className="absolute mt-4 dropdown-content z-[1] menu p-2 shadow rounded-box w-56 lg:w-56 bg-primary-darker">
-                                    {manuProfileBar.map(profile => (
-                                        <HeaderDropdownItem key={profile.id} to={profile.to} title={profile.title} onClick={profile.onClick} />
-                                    ))}
-                                </ul>
+                                {authUser.isAdmin === true ?
+                                    (<ul tabIndex={0} className="absolute mt-4 dropdown-content z-[1] menu p-2 shadow rounded-box w-56 lg:w-56 bg-primary-darker">
+                                        {manuAdminBar.map(admin => (
+                                            <HeaderDropdownItem key={admin.id} to={admin.to} title={admin.title} onClick={admin.onClick} />
+                                        ))}
+                                    </ul>) :
+                                    (<ul tabIndex={0} className="absolute mt-4 dropdown-content z-[1] menu p-2 shadow rounded-box w-56 lg:w-56 bg-primary-darker">
+                                        {manuProfileBar.map(profile => (
+                                            <HeaderDropdownItem key={profile.id} to={profile.to} title={profile.title} onClick={profile.onClick} />
+                                        ))}
+                                    </ul>)}
                             </details>
                             )
                             :

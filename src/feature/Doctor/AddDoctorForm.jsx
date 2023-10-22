@@ -1,25 +1,22 @@
 import Joi from 'joi'
 import { useNavigate } from "react-router-dom"
-import { useState, useRef } from "react"
-import { useAuth } from "../../hooks/use_auth"
+import { useState, useEffect, useRef } from "react"
 import Loading from "../../components/Loading"
-import defaultImage from '../../assets/paw.png'
+import defaultImage from '../../assets/doctor.png'
 import EditInputForm from "../user/EditInputForm"
+import axios from '../../config/axios'
+import Swal from 'sweetalert2'
 
 
-const AddPetSchema = Joi.object({
-    petName: Joi.string().trim(),
-    breed: Joi.string().trim(),
-    age: Joi.string().trim(),
-    sex: Joi.string().trim(),
-    drugAllergy: Joi.string().trim(),
-    Other: Joi.string().trim(),
-    userId: Joi.number()
+const AddDoctorSchema = Joi.object({
+    firstNameDoctor: Joi.string().trim(),
+    lastNameDoctor: Joi.string().trim(),
+    specialist: Joi.string().trim(),
 })
 
-const validateAddPet = petinput => {
-    console.log(petinput)
-    const { error } = AddPetSchema.validate(petinput, { abortEarly: false });
+const validateAddDoctor = doctorInput => {
+    console.log(doctorInput)
+    const { error } = AddDoctorSchema.validate(doctorInput, { abortEarly: false });
     console.log(error);
     if (error) {
         const result = error.details.reduce((acc, el) => {
@@ -31,69 +28,64 @@ const validateAddPet = petinput => {
     }
 }
 
-export default function AddpetsForm() {
+export default function AddDoctorForm() {
     const [file, setFile] = useState(null);
     const [loading, setLoading] = useState(false);
     const inputEl = useRef(null);
-    const { authUser } = useAuth()
 
-
-
-
-    const [petInput, setPetInput] = useState({
-        petName: '',
-        breed: '',
-        sex: '',
-        age: '',
-        Other: '',
-        drugAllergy: '',
-        userId: ''
+    const [doctorInput, setDoctorInput] = useState({
+        firstNameDoctor: '',
+        lastNameDoctor: '',
+        specialist: ''
     })
 
-    const { AddPet } = useAuth();
     const Navigate = useNavigate()
     const [error, setError] = useState({});
 
-    const addPetInput = [
-        { id: 1, title: 'PetName', placeholder: 'PetName', value: `${petInput.petName}`, name: 'petName', errorInput: error.petName || null },
-        { id: 2, title: 'Sex', placeholder: 'Sex', value: `${petInput.sex}`, name: 'sex', errorInput: error.sex || null },
-        { id: 3, title: 'breed', placeholder: 'breed', value: `${petInput.breed}`, name: 'breed', errorInput: error.breed || null },
-        { id: 4, title: 'Age', placeholder: 'Age', value: `${petInput.age}`, name: 'age', errorInput: error.age || null },
-        { id: 5, title: 'Allergy', placeholder: 'Allergy', value: `${petInput.drugAllergy}`, name: 'drugAllergy', errorInput: error.drugAllergy || null },
-        { id: 6, title: 'Other', placeholder: 'Other', value: `${petInput.Other}`, name: 'Other', errorInput: error.Other || null },
+    const addDoctorInput = [
+        { id: 1, title: 'First name', placeholder: 'First name', value: `${doctorInput.firstNameDoctor}`, name: 'firstNameDoctor', errorInput: error.firstNameDoctor || null },
+        { id: 2, title: 'Last name', placeholder: 'Last name', value: `${doctorInput.lastNameDoctor}`, name: 'lastNameDoctor', errorInput: error.lastNameDoctor || null },
+        { id: 3, title: 'Specialist', placeholder: 'Specialist', value: `${doctorInput.specialist}`, name: 'specialist', errorInput: error.specialist || null }
     ]
 
     const handleChangeInput = e => {
-        setPetInput({ ...petInput, [e.target.name]: e.target.value })
+        setDoctorInput({ ...doctorInput, [e.target.name]: e.target.value })
     }
 
     const handleSubmitForm = async (e) => {
         try {
-            const userId = +authUser.id
-            const inputCheck = { ...petInput, userId }
-
-            console.log(inputCheck)
+            const input = { ...doctorInput }
             e.preventDefault();
 
 
-            const validationError = validateAddPet(inputCheck);
+            const validationError = validateAddDoctor(input);
             if (validationError) {
                 return setError(validationError);
             }
-
             const formData = new FormData();
 
             if (file) {
-                formData.append('petImage', file)
+                formData.append('doctorImage', file)
             }
+            formData.append('doctorData', JSON.stringify(input))
 
-            formData.append('petData', JSON.stringify(inputCheck))
-            console.log(formData.get('petData'))
+            const AddDoctor = async (addDoctor) => {
+                try {
+                    const res = await axios.post('/admin/add', addDoctor)
+                    console.log(res)
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Add Doctor SuccessFul!'
+                    })
+                } catch (err) {
+                    console.log(err)
+                }
+            }
 
             setError({});
             setLoading(true)
-            await AddPet(formData)
-            Navigate(`/pets/${authUser.id}`)
+            await AddDoctor(formData)
+            Navigate(`/admin/doctor`)
         } catch (err) {
             console.log(err)
         } finally {
@@ -123,12 +115,11 @@ export default function AddpetsForm() {
                             onClick={() => { inputEl.current.click() }}
                             className="w-[200px] h-[200px] overflow-hidden rounded-full shadow-md">
                             {file ? (<img src={URL.createObjectURL(file)} alt="post" className='object-cover h-full aspect-square' />) :
-
                                 (<img src={defaultImage} className="object-cover h-full aspect-square" />)}
                         </div>
                     </div>
                     <div className="flex flex-col justify-center items-center gap-4 pt-10">
-                        {addPetInput.map(el =>
+                        {addDoctorInput.map(el =>
                             <EditInputForm key={el.id} title={el.title} placeholder={el.placeholder} value={el.value} name={el.name} errorInput={el.errorInput} onChange={handleChangeInput} />
                         )}
                     </div>

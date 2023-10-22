@@ -16,6 +16,8 @@ import EditProfilePage from '../page/EditProfilePage'
 import AddPetPage from "../page/AddPetPage";
 import EditPetPage from "../page/EditPetPage";
 import ConfirmBooking from "../page/ConfirmBooking"
+import DoctorPage from "../page/DoctorPage"
+import AddDoctorPage from "../page/AddDoctorPage";
 
 
 
@@ -44,6 +46,8 @@ const router = createBrowserRouter([
             { path: '/pets/editpet/:petId', element: <EditPetPage /> },
             { path: '/appointment', element: <MyAppointmentPage /> },
             { path: '/confirm', element: < ConfirmBooking /> },
+            { path: '/admin/doctor', element: <DoctorPage /> },
+            { path: '/admin/doctor/add', element: <AddDoctorPage /> },
         ]
     },
     {
