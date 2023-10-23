@@ -16,6 +16,7 @@ export default function () {
     const { authUser } = useAuth()
     const myPet = authUser.Pets
 
+
     return (
         <div className='pt-16 relative'>
             <div className='flex flex-col items-center m-auto border-4 border-semantic-darkCream w-[840px] h-[200px] rounded-3xl'>

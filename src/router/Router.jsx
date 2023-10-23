@@ -15,11 +15,12 @@ import MyAppointmentPage from '../page/MyAppointmentPage'
 import EditProfilePage from '../page/EditProfilePage'
 import AddPetPage from "../page/AddPetPage";
 import EditPetPage from "../page/EditPetPage";
-import ConfirmBooking from "../page/ConfirmBooking"
 import DoctorPage from "../page/DoctorPage"
 import AddDoctorPage from "../page/AddDoctorPage";
 import EditDoctorPage from '../page/EditDoctorPage'
 import AllAppointmentPage from "../page/AllAppointmentPage";
+import ConfirmBookingAuth from "../page/ConfirmBookingAuth";
+import ConfirmBookingNonAuth from "../page/CorfirmBookingNonAuth";
 
 
 
@@ -47,7 +48,8 @@ const router = createBrowserRouter([
             { path: '/pets/add/:profileId', element: <AddPetPage /> },
             { path: '/pets/editpet/:petId', element: <EditPetPage /> },
             { path: '/appointment/:profileId', element: <MyAppointmentPage /> },
-            { path: '/confirm/:profileId', element: < ConfirmBooking /> },
+            { path: '/confirm/:profileId', element: < ConfirmBookingAuth /> },
+            { path: '/confirm/nonauth', element: < ConfirmBookingNonAuth /> },
             { path: '/admin/doctor', element: <DoctorPage /> },
             { path: '/admin/doctor/add', element: <AddDoctorPage /> },
             { path: '/admin/editdoctor/:doctorId', element: <EditDoctorPage /> },

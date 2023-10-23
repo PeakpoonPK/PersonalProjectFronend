@@ -3,7 +3,6 @@ import defaultImage from '../../assets/doctor.png'
 import { useEffect } from 'react'
 import axios from '../../config/axios'
 import { Link } from 'react-router-dom'
-import InputPetForm from '../pets/InputPetForm'
 import InputDoctorForm from './InputDocrtorForm'
 
 export default function PetsBox() {

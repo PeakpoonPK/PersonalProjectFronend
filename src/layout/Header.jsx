@@ -111,12 +111,13 @@ export default function Header() {
                             </Link>
                         </li>)
                     }
-                    {authUser?.isAdmin === true ? null : <li className='flex justify-center items-center gap-2 text-white bg-secondary-main py-2.5 px-5 rounded-3xl font-normal text-lg hover:cursor-pointer hover:bg-secondary-dark active:bg-secondary-darker lg:text-sm lg:px-3 lg:py-2 sm:hidden'>
-                        <Link to='/booking'>
-                            Booking
-                        </Link>
-                        <span className="material-symbols-outlined font-normal text-sm">arrow_forward_ios</span>
-                    </li>}
+                    {authUser?.isAdmin === true ? null :
+                        <li className='flex justify-center items-center gap-2 text-white bg-secondary-main py-2.5 px-5 rounded-3xl font-normal text-lg hover:cursor-pointer hover:bg-secondary-dark active:bg-secondary-darker lg:text-sm lg:px-3 lg:py-2 sm:hidden'>
+                            <Link to='/booking'>
+                                Booking
+                            </Link>
+                            <span className="material-symbols-outlined font-normal text-sm">arrow_forward_ios</span>
+                        </li>}
                 </ul >
             </div >
         </header >

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import TimeBookingButton from './TimeBookingButton';
 import { useEffect } from 'react'
 import { useState } from 'react'
-import axios from '../../config/axios';
+import axios from 'axios';
 import { useAuth } from '../../hooks/use_auth';
 
 export default function ChooseTimeInDateForm() {
@@ -44,7 +44,8 @@ export default function ChooseTimeInDateForm() {
                 </div>
                 <button
                     className='flex flex-col relative bottom-0 left-64 text-xl  font-normal bg-primary-darker rounded-2xl text-white py-2 px-6 hover:cursor-pointer hover:bg-primary-main active:bg-primary-dark'>
-                    <Link to={`/confirm/${authUser.id}`}>Confirm</Link>
+                    {authUser ? (<Link to={`/confirm/${authUser.id}`}>Confirm</Link>) : <Link to='/confirm/nonauth'>Confirm</Link>}
+
                 </button>
             </div>
         </form >
