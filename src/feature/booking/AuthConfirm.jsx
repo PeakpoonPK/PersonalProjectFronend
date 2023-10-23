@@ -1,6 +1,7 @@
 import React from 'react'
 import BookingConfirmForm from './BookingConfirmForm'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../../hooks/use_auth'
 
 const dataBooking = [
     { id: 1, title: 'Date', data: '-' },
@@ -9,7 +10,15 @@ const dataBooking = [
     { id: 4, title: 'Room', data: '-' },
 ]
 
+
+
 export default function () {
+    const { authUser, setAuthUser } = useAuth()
+    const myPet = authUser.Pets
+    console.log(myPet)
+
+
+
     return (
         <div className='pt-16 relative'>
             <div className='flex flex-col items-center m-auto border-4 border-semantic-darkCream w-[840px] h-[200px] rounded-3xl'>
@@ -23,7 +32,9 @@ export default function () {
                     <label className='text-secondary-main'>Choose Your Pet</label>
                     <select className='w-96 rounded-lg  text-primary-darker border-none p-2'>
                         <option>Choose Your Pet</option>
-                        <option></option>
+                        {myPet.map((el, myPetId) => {
+                            return <option key={myPetId}>{el.petName}</option>
+                        })}
                     </select>
                 </div>
                 <div className='flex gap-4'>

@@ -46,9 +46,7 @@ export default function PetsBox() {
                     { id: 6, title: 'Age', data: `${el.age || "-"}` },
                 ]
 
-                return <div
-                    key={petid}
-                    className='p-2 flex'>
+                return <div key={petid} className='p-2 flex'>
                     <div className='flex gap-8 mt-6 border-2 sm:border-2 rounded-3xl border-primary-darker justify-center lg:w-[560px] sm:w-[240px] w-[800px] m-auto relative p-4 '>
                         <div className='w-[160px] h-[160px] overflow-hidden rounded-full shadow-md' >
                             {el.petImage ? <img src={el.petImage}></img>
