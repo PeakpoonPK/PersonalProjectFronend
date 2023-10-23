@@ -13,11 +13,8 @@ const dataBooking = [
 
 
 export default function () {
-    const { authUser, setAuthUser } = useAuth()
+    const { authUser } = useAuth()
     const myPet = authUser.Pets
-    console.log(myPet)
-
-
 
     return (
         <div className='pt-16 relative'>

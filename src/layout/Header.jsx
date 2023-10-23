@@ -34,12 +34,11 @@ export default function Header() {
             { id: 4, to: "/", title: 'Log out', onClick: logout }
         ]
     }
-    //ต้องมาแก้ตรงนี้ให้ isAdmin เป็น null ได้
     let manuAdminBar = []
     if (authUser?.isAdmin) {
         manuAdminBar = [
             { id: 1, to: `/admin/doctor`, title: 'Doctor' },
-            { id: 2, to: `/`, title: 'All Appointment' },
+            { id: 2, to: '/admin/allappointment', title: 'All Appointment' },
             { id: 3, to: "/", title: 'Log out', onClick: logout }
         ]
     }
@@ -76,49 +75,48 @@ export default function Header() {
                             </li>
                         </ul>
                     </div>
-                    {
-                        authUser ?
-                            (<details className="dropdown dropdown-bottom " >
-                                <summary className=' flex justify-center items-center gap-2  font-normal text-lg rounded-3xl border-2 border-primary-darker hover:cursor-pointer hover:bg-primary-lightest px-4 py-2 active:bg-primary-light lg:text-sm lg:py-1 lg:px-2 ' >
-                                    {authUser.profileImage ? (
-                                        <div className='w-[40px] h-[40px] overflow-hidden rounded-full shadow-md  '>
-                                            <img src={authUser.profileImage} alt='profileImage' className='object-cover h-full aspect-square' ></img>
-                                        </div>) :
-                                        (<div>
-                                            <span className="material-symbols-outlined w-6 h-6 p-2 rounded-full bg-primary-light text-white flex justify-center items-center text-base font-thin">
-                                                person
-                                            </span>
-                                        </div>)}
-                                    <span> {authUser.firstName}</span>
-                                    <span className="material-symbols-outlined">keyboard_arrow_down</span>
-                                </summary>
-                                {authUser.isAdmin === true ?
-                                    (<ul tabIndex={0} className="absolute mt-4 dropdown-content z-[1] menu p-2 shadow rounded-box w-56 lg:w-56 bg-primary-darker">
-                                        {manuAdminBar.map(admin => (
-                                            <HeaderDropdownItem key={admin.id} to={admin.to} title={admin.title} onClick={admin.onClick} />
-                                        ))}
-                                    </ul>) :
-                                    (<ul tabIndex={0} className="absolute mt-4 dropdown-content z-[1] menu p-2 shadow rounded-box w-56 lg:w-56 bg-primary-darker">
-                                        {manuProfileBar.map(profile => (
-                                            <HeaderDropdownItem key={profile.id} to={profile.to} title={profile.title} onClick={profile.onClick} />
-                                        ))}
-                                    </ul>)}
-                            </details>
-                            )
-                            :
-                            (<li
-                                className='text-semantic-textPrimary font-normal text-lg rounded-3xl border-2 border-primary-darker hover:cursor-pointer hover:bg-primary-lightest px-4 py-2 active:bg-primary-light lg:text-sm lg:px-2 lg:py-1.5' >
-                                <Link to='/login'>
-                                    Log in
-                                </Link>
-                            </li>)
+                    {authUser ?
+                        (<details className="dropdown dropdown-bottom " >
+                            <summary className=' flex justify-center items-center gap-2  font-normal text-lg rounded-3xl border-2 border-primary-darker hover:cursor-pointer hover:bg-primary-lightest px-4 py-2 active:bg-primary-light lg:text-sm lg:py-1 lg:px-2 ' >
+                                {authUser.profileImage ? (
+                                    <div className='w-[40px] h-[40px] overflow-hidden rounded-full shadow-md  '>
+                                        <img src={authUser.profileImage} alt='profileImage' className='object-cover h-full aspect-square' ></img>
+                                    </div>) :
+                                    (<div>
+                                        <span className="material-symbols-outlined w-6 h-6 p-2 rounded-full bg-primary-light text-white flex justify-center items-center text-base font-thin">
+                                            person
+                                        </span>
+                                    </div>)}
+                                <span> {authUser.firstName}</span>
+                                <span className="material-symbols-outlined">keyboard_arrow_down</span>
+                            </summary>
+                            {authUser.isAdmin === true ?
+                                (<ul tabIndex={0} className="absolute mt-4 dropdown-content z-[1] menu p-2 shadow rounded-box w-56 lg:w-56 bg-primary-darker">
+                                    {manuAdminBar.map(admin => (
+                                        <HeaderDropdownItem key={admin.id} to={admin.to} title={admin.title} onClick={admin.onClick} />
+                                    ))}
+                                </ul>) :
+                                (<ul tabIndex={0} className="absolute mt-4 dropdown-content z-[1] menu p-2 shadow rounded-box w-56 lg:w-56 bg-primary-darker">
+                                    {manuProfileBar.map(profile => (
+                                        <HeaderDropdownItem key={profile.id} to={profile.to} title={profile.title} onClick={profile.onClick} />
+                                    ))}
+                                </ul>)}
+                        </details>
+                        )
+                        :
+                        (<li
+                            className='text-semantic-textPrimary font-normal text-lg rounded-3xl border-2 border-primary-darker hover:cursor-pointer hover:bg-primary-lightest px-4 py-2 active:bg-primary-light lg:text-sm lg:px-2 lg:py-1.5' >
+                            <Link to='/login'>
+                                Log in
+                            </Link>
+                        </li>)
                     }
-                    <li className='flex justify-center items-center gap-2 text-white bg-secondary-main py-2.5 px-5 rounded-3xl font-normal text-lg hover:cursor-pointer hover:bg-secondary-dark active:bg-secondary-darker lg:text-sm lg:px-3 lg:py-2 sm:hidden'>
+                    {authUser?.isAdmin === true ? null : <li className='flex justify-center items-center gap-2 text-white bg-secondary-main py-2.5 px-5 rounded-3xl font-normal text-lg hover:cursor-pointer hover:bg-secondary-dark active:bg-secondary-darker lg:text-sm lg:px-3 lg:py-2 sm:hidden'>
                         <Link to='/booking'>
                             Booking
                         </Link>
                         <span className="material-symbols-outlined font-normal text-sm">arrow_forward_ios</span>
-                    </li>
+                    </li>}
                 </ul >
             </div >
         </header >
