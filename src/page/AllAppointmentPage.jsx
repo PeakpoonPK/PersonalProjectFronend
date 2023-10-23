@@ -1,3 +1,4 @@
+import MainAllApointment from "../layout/MainAllApointment";
 import SideBarAdmin from "../layout/SideBarAdmin";
 
 
@@ -8,7 +9,7 @@ export default function AllAppointmentPage() {
                 <SideBarAdmin />
             </div>
             <div className="pb-24 h-full bg-slate-50">
-
+                <MainAllApointment />
             </div>
 
         </div>

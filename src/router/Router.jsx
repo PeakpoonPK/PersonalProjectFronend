@@ -11,7 +11,7 @@ import RegisterPage from "../page/RegisterPage"
 import RedirectIfAuthenticated from "../feature/auth/RedirectAuthenticated";
 import ProfilePage from '../page/ProfilePage'
 import PetPage from '../page/PetPage'
-import MyAppointmentPage from '../page/MyAppointment'
+import MyAppointmentPage from '../page/MyAppointmentPage'
 import EditProfilePage from '../page/EditProfilePage'
 import AddPetPage from "../page/AddPetPage";
 import EditPetPage from "../page/EditPetPage";
