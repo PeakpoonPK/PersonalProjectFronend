@@ -1,7 +1,5 @@
 import AuthConfirm from '../feature/booking/AuthConfirm';
 
-import { useAuth } from '../hooks/use_auth'
-
 
 export default function ConfirmBookingAuth() {
 

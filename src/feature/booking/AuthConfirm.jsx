@@ -2,20 +2,24 @@ import React from 'react'
 import BookingConfirmForm from './BookingConfirmForm'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../hooks/use_auth'
-
-const dataBooking = [
-    { id: 1, title: 'Date', data: '-' },
-    { id: 2, title: 'Time', data: '-' },
-    { id: 3, title: 'Doctor', data: '-' },
-    { id: 4, title: 'Room', data: '-' },
-]
+import { useParams } from 'react-router-dom';
 
 
 
-export default function () {
+
+
+export default function (props) {
+
     const { authUser } = useAuth()
+    const { timePeriod, doctorId, date } = useParams()
     const myPet = authUser.Pets
 
+    const dataBooking = [
+        { id: 1, title: 'Date', data: date },
+        { id: 2, title: 'Time', data: timePeriod },
+        { id: 3, title: 'Doctor', data: '-' },
+        { id: 4, title: 'Room', data: '-' },
+    ]
 
     return (
         <div className='pt-16 relative'>

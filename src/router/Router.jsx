@@ -19,8 +19,8 @@ import DoctorPage from "../page/DoctorPage"
 import AddDoctorPage from "../page/AddDoctorPage";
 import EditDoctorPage from '../page/EditDoctorPage'
 import AllAppointmentPage from "../page/AllAppointmentPage";
-import ConfirmBookingAuth from "../page/ConfirmBookingAuth";
-import ConfirmBookingNonAuth from "../page/CorfirmBookingNonAuth";
+import RedirectIfAdmin from "../feature/auth/RedirectAdmin";
+import RedirectIfUser from "../feature/auth/RedirectUser";
 
 
 
@@ -40,22 +40,10 @@ const router = createBrowserRouter([
             { path: '/today', element: <TodayAvailable /> },
             { path: '/service', element: <Service /> },
             { path: '/about', element: <About /> },
-            { path: '/booking', element: <SearchBooking /> },
-            { path: '/register', element: <RegisterPage /> },
-            { path: '/profile/:profileId', element: <ProfilePage /> },
-            { path: '/profile/:profileId/editProfile', element: <EditProfilePage /> },
-            { path: '/pets/:profileId', element: <PetPage /> },
-            { path: '/pets/add/:profileId', element: <AddPetPage /> },
-            { path: '/pets/editpet/:petId', element: <EditPetPage /> },
-            { path: '/appointment/:profileId', element: <MyAppointmentPage /> },
-            { path: '/confirm/:profileId', element: < ConfirmBookingAuth /> },
-            { path: '/confirm/nonauth', element: < ConfirmBookingNonAuth /> },
-            { path: '/admin/doctor', element: <DoctorPage /> },
-            { path: '/admin/doctor/add', element: <AddDoctorPage /> },
-            { path: '/admin/editdoctor/:doctorId', element: <EditDoctorPage /> },
-            { path: '/admin/allappointment', element: <AllAppointmentPage /> },
+            { path: '/booking', element: <SearchBooking /> }
         ]
     },
+
     {
         path: '/login',
         element: (
@@ -67,8 +55,88 @@ const router = createBrowserRouter([
                     </RedirectIfAuthenticated>
                 </div>
             </div>
+        ),
+
+    },
+    {
+        path: '/register',
+        element: (
+            <div className="bg-slate-50 h-screen relation">
+                <Header />
+                <div>
+                    <RedirectIfAuthenticated>
+                        <RegisterPage />
+                    </RedirectIfAuthenticated>
+                </div>
+            </div>
         )
+    },
+
+    {
+        path: '/admin',
+        element: (
+            <div className="bg-slate-50 h-screen relation">
+                <Header />
+                <div>
+                    <RedirectIfAdmin>
+                        <Outlet />
+                    </RedirectIfAdmin>
+                </div>
+            </div>
+        )
+        , children: [
+            { path: '/admin/doctor', element: <DoctorPage /> },
+            { path: '/admin/doctor/add', element: <AddDoctorPage /> },
+            { path: '/admin/editdoctor/:doctorId', element: <EditDoctorPage /> },
+            { path: '/admin/allappointment', element: <AllAppointmentPage /> },
+        ]
+    },
+    {
+        path: '/',
+        element: (
+            <div className="bg-slate-50 h-screen relation">
+                <Header />
+                <div>
+                    <RedirectIfUser>
+                        <Outlet />
+                    </RedirectIfUser>
+                </div>
+            </div>
+        )
+        , children: [
+            { path: '/booking', element: <SearchBooking /> },
+            { path: '/profile/:profileId', element: <ProfilePage /> },
+            { path: '/profile/:profileId/editProfile', element: <EditProfilePage /> },
+            { path: '/pets/:profileId', element: <PetPage /> },
+            { path: '/pets/add/:profileId', element: <AddPetPage /> },
+            { path: '/pets/editpet/:petId', element: <EditPetPage /> },
+            { path: '/appointment/:profileId', element: <MyAppointmentPage /> },
+        ]
     }
+    // {
+    //     path: '/',
+    //     element: (
+    //         <div className="bg-slate-50 h-screen relation" >
+    //             <Header />
+    //             <div>
+    //                 <RedirectIfAdmin>
+    //                     < Outlet />
+    //                 </RedirectIfAdmin>
+    //             </div>
+    //         </div>
+    //     ),
+    //     children: [
+    //         { path: '/booking', element: <SearchBooking /> },
+    //         { path: '/register', element: <RegisterPage /> },
+    //         { path: '/profile/:profileId', element: <ProfilePage /> },
+    //         { path: '/profile/:profileId/editProfile', element: <EditProfilePage /> },
+    //         { path: '/pets/:profileId', element: <PetPage /> },
+    //         { path: '/pets/add/:profileId', element: <AddPetPage /> },
+    //         { path: '/pets/editpet/:petId', element: <EditPetPage /> },
+    //         { path: '/appointment/:profileId', element: <MyAppointmentPage /> },
+
+    //     ]
+    // }
 
 ]);
 

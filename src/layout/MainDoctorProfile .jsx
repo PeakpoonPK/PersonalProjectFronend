@@ -1,12 +1,9 @@
 import { Link } from 'react-router-dom';
-import PetsForm from '../feature/pets/PetsForm';
-import { useAuth } from '../hooks/use_auth';
 import DoctorForm from '../feature/Doctor/DoctorForm'
 
 
 
 export default function MainDoctorProfile() {
-    const { authUser } = useAuth()
 
     return (
         <div className='flex flex-col w-[75%] lg:pt-24 pt-32  absolute right-0 gap-8 bg-slate-50 h-' >

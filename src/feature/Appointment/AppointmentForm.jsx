@@ -1,18 +1,15 @@
 import { useState } from 'react'
-import defaultImage from '../../assets/paw.png'
 import { useEffect } from 'react'
 import axios from '../../config/axios'
-import { Link } from 'react-router-dom'
 import InputAppointmentForm from '../Appointment/InputAppointmentForm'
-import { useAuth } from '../../hooks/use_auth'
-import { json } from 'react-router-dom'
+
 
 
 
 export default function AppointmentForm() {
 
     const [allmyAppointment, setAllmyAppointment] = useState([])
-    const { authUser } = useAuth()
+
 
     const deleteAppointment = async (appointmentId) => {
         try {
@@ -32,7 +29,6 @@ export default function AppointmentForm() {
 
 
     useEffect(() => {
-
         axios.get('/booking/all')
             .then((res) => {
                 setAllmyAppointment(res.data.appointment)
