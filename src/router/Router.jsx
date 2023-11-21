@@ -113,30 +113,6 @@ const router = createBrowserRouter([
             { path: '/appointment/:profileId', element: <MyAppointmentPage /> },
         ]
     }
-    // {
-    //     path: '/',
-    //     element: (
-    //         <div className="bg-slate-50 h-screen relation" >
-    //             <Header />
-    //             <div>
-    //                 <RedirectIfAdmin>
-    //                     < Outlet />
-    //                 </RedirectIfAdmin>
-    //             </div>
-    //         </div>
-    //     ),
-    //     children: [
-    //         { path: '/booking', element: <SearchBooking /> },
-    //         { path: '/register', element: <RegisterPage /> },
-    //         { path: '/profile/:profileId', element: <ProfilePage /> },
-    //         { path: '/profile/:profileId/editProfile', element: <EditProfilePage /> },
-    //         { path: '/pets/:profileId', element: <PetPage /> },
-    //         { path: '/pets/add/:profileId', element: <AddPetPage /> },
-    //         { path: '/pets/editpet/:petId', element: <EditPetPage /> },
-    //         { path: '/appointment/:profileId', element: <MyAppointmentPage /> },
-
-    //     ]
-    // }
 
 ]);
 

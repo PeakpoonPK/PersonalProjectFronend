@@ -7,16 +7,16 @@ import EditInputForm from '../feature/user/EditInputForm';
 import InputErrorMessage from '../feature/auth/InputErrorMessage';
 
 const EditProfilePrismaSchema = Joi.object({
-    firstName: Joi.string().trim().allow(null, ''),
-    lastName: Joi.string().trim().allow(null, ''),
+    firstName: Joi.string().trim().required(),
+    lastName: Joi.string().trim().required(),
     mobile_1: Joi.string().pattern(/^[0-9]{10}$/).required().allow(null, '').messages({
         'string.pattern.base': 'Mobile number must be exactly 10 digits long and contain only numbers.'
     }),
-    mobile_2: Joi.string().pattern(/^[0-9]{10}$/).required().allow(null, '').messages({
+    mobile_2: Joi.string().pattern(/^[0-9]{10}$/).required().allow(null, '-').messages({
         'string.pattern.base': 'Mobile number must be exactly 10 digits long and contain only numbers.'
     }),
-    lineId: Joi.string().trim().allow(null, ''),
-    address: Joi.string().trim().allow(null, ''),
+    lineId: Joi.string().trim().allow(null, '-'),
+    address: Joi.string().trim().allow(null, '-'),
 })
 
 const validateEditProfile = input => {
@@ -59,9 +59,9 @@ export default function EditProfile({ children, title, initialSrc }) {
         { id: 1, title: 'FirstName', placeholder: `${authUser.firstName || '-'}`, value: `${input.firstName}`, name: 'firstName', errorInput: error.firstName || null },
         { id: 2, title: 'Last name', placeholder: `${authUser.lastName || '-'}`, value: `${input.lastName}`, name: 'lastName', errorInput: error.lastName || null },
         { id: 3, title: 'Mobile No.1', placeholder: `${authUser.mobile_1 || '-'}`, value: `${input.mobile_1}`, name: 'mobile_1', errorInput: error.mobile_1 || null },
-        { id: 4, title: 'Mobile No.2', placeholder: `${authUser.mobile_2 || '-'}`, value: `${input.mobile_2}`, name: 'mobile_2', errorInput: error.mobile_2 || null },
-        { id: 5, title: 'Line ID', placeholder: `${authUser.lineId || '-'}`, value: `${input.lineId}`, name: 'lineId', errorInput: error.lineId || null },
-        { id: 6, title: 'Address', placeholder: `${authUser.address || '-'}`, value: `${input.address}`, name: 'address', errorInput: error.address || null },
+        { id: 4, title: 'Mobile No.2', placeholder: `${authUser.mobile_2 || '-'}`, value: `${input?.mobile_2}`, name: 'mobile_2', errorInput: error.mobile_2 || null },
+        { id: 5, title: 'Line ID', placeholder: `${authUser.lineId || '-'}`, value: `${input?.lineId}`, name: 'lineId', errorInput: error.lineId || null },
+        { id: 6, title: 'Address', placeholder: `${authUser.address || '-'}`, value: `${input?.address}`, name: 'address', errorInput: error.address || null },
     ]
 
     const handleChangeInput = e => {
@@ -113,7 +113,7 @@ export default function EditProfile({ children, title, initialSrc }) {
             </div>
             <form
                 onSubmit={handleSubmitForm}
-                className='flex flex-col gap-8 mt-6 border-4 sm:border-2 rounded-3xl border-secondary-darker justify-center lg:w-[560px] sm:w-[240px] w-[600px] m-auto relative pb-24 '>
+                className='flex flex-col gap-8 mt-6 border-4 sm:border-2 rounded-3xl border-secondary-darker justify-center lg:w-[560px] sm:w-[240px] w-[600px] h-[720px] m-auto relative pb-24 '>
                 {loading ? <Loading /> :
                     <>
                         <div className='flex sm:pt-4 pt-8'>

@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 
 export default function RedirectIfAdmin({ children }) {
     const { authUser } = useAuth();
-    if (authUser.isAdmin === false) {
+    if (authUser?.isAdmin === false) {
         return <Navigate to='/' />
     }
     return children;

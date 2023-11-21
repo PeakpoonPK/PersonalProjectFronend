@@ -2,11 +2,12 @@ import { useNavigate } from 'react-router-dom';
 import TimeBookingButton from './TimeBookingButton';
 import { useEffect } from 'react'
 import { useState } from 'react'
-import axios from 'axios';
+
 import { useAuth } from '../../hooks/use_auth';
 import Joi from 'joi'
 import Swal from 'sweetalert2';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import axios from '../../config/axios'
 
 
 
@@ -35,6 +36,10 @@ export default function ChooseTimeInDateForm() {
     const { authUser } = useAuth()
     const Navigate = useNavigate()
     const myPet = authUser?.Pets
+
+    const [allmyAppointment, setAllmyAppointment] = useState([])
+
+
 
     const [appointmentInput, setAppointmentInput] = useState({
         date: '',
@@ -88,6 +93,14 @@ export default function ChooseTimeInDateForm() {
             .catch(err => console.log(err))
     }, [])
 
+    useEffect(() => {
+        axios.get('/booking/allbooking')
+            .then((res) => {
+                setAllmyAppointment(res.data.appointment)
+            })
+            .catch(err => console.log(err))
+    }, [])
+
     return (
 
 
@@ -96,13 +109,20 @@ export default function ChooseTimeInDateForm() {
             <div className='flex flex-col justify-center items-center m-auto pt-8 gap-8 relative'>
                 <div className='flex gap-4 justify-center items-center text-xl'>
                     <label className='text-secondary-main'>Choose Date</label>
-                    <input value={appointmentInput.date} onChange={handleChangeInput} type='date' name='date' className='w-96 rounded-lg  text-primary-darker border-none p-2' />
+                    <input
+                        value={appointmentInput.date}
+                        onChange={handleChangeInput}
+                        type='date'
+                        name='date'
+                        className='w-96 rounded-lg  text-primary-darker border-none p-2'
+
+                    />
                 </div>
                 <div className='flex gap-4 justify-center items-center text-xl'>
                     <label className='text-secondary-main'>Choose Doctor</label>
                     <select onChange={handleChangeInput} value={appointmentInput.doctorId} name='doctorId' className='w-96 rounded-lg text-primary-darker border-none p-2'>
                         <option>First Available Doctor</option>
-                        {doctor.map((el, doctorId) => {
+                        {doctor?.map((el, doctorId) => {
                             return <option value={el.id} key={doctorId}>{el.firstNameDoctor} {el.lastNameDoctor}</option>
                         }
                         )}
@@ -113,7 +133,7 @@ export default function ChooseTimeInDateForm() {
                     <label className='text-secondary-main pt-'>Choose Time</label>
                     <div className='flex flex-col border-4 border-semantic-darkCream w-[760px] h-[300px] rounded-3xl'>
                         <div >
-                            <TimeBookingButton name='timePeroid' setClick={setClick} click={click} />
+                            <TimeBookingButton name='timePeroid' setClick={setClick} click={click} booked={allmyAppointment.filter((e) => e.date == appointmentInput.date && e.doctorId == appointmentInput.doctorId)} />
                         </div>
                     </div>
                 </div>
@@ -122,7 +142,7 @@ export default function ChooseTimeInDateForm() {
                         <label className='text-secondary-main'>Choose Your Pet</label>
                         <select value={appointmentInput.petId} name='petId' onChange={handleChangeInput} className='w-96 rounded-lg  text-primary-darker border-none p-2'>
                             <option>Choose Your Pet</option>
-                            {myPet.map((el, petId) => {
+                            {myPet?.map((el, petId) => {
                                 return <option value={el.id} key={petId}>{el.petName}</option>
                             })}
                         </select>

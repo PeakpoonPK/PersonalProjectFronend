@@ -17,13 +17,13 @@ export default function HomePage() {
                             <p className={wordDesign}>Care For Pets</p>
                         </div>
                         <div className='flex gap-4 justify-center pt-16'>
-                            <button className=' flex justify-center items-center gap-2 text-white font-normal text-lg  bg-secondary-main py-2 px-6 hover:cursor-pointer hover:bg-secondary-dark active:bg-secondary-darker' >
+                            <button className=' flex justify-center items-center gap-2 text-white font-normal text-lg  bg-secondary-main py-2 px-6 hover:cursor-pointer hover:bg-secondary-dark active:bg-secondary-darker z-10' >
                                 <Link to='/booking'>
                                     Book a visit
                                 </Link>
                                 <span className="material-symbols-outlined font-normal text-sm">arrow_forward_ios</span>
                             </button>
-                            <button className='text-semantic-textSecondary font-normal text-lg  bg-slate-50 border-2 border-secondary-main py-2 px-6 hover:cursor-pointer hover:bg-secondary-lightest active:bg-secondary-light' >
+                            <button className='text-semantic-textSecondary font-normal text-lg  bg-slate-50 border-2 border-secondary-main py-2 px-6 hover:cursor-pointer hover:bg-secondary-lightest active:bg-secondary-light z-10' >
                                 <Link to='/about'>
                                     Contact Us
                                 </Link>

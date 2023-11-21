@@ -7,13 +7,13 @@ import InputPetForm from './InputPetForm'
 
 export default function PetsBox() {
     const [allPet, setAllPet] = useState([])
-    const [allPetByUserId, setAllPetByUserId] = useState([])
+
 
 
     const deletePet = async (petId) => {
         try {
             await axios.delete(`/pets/${petId}`);
-            setAllPetByUserId(allPetByUserId.filter(el => el.id !== petId));
+            setAllPet(allPet.filter(el => el.id !== petId));
             axios.get('/pets/all')
                 .then((res) => setAllPet(res.data.pet))
                 .catch(err => console.log(err))

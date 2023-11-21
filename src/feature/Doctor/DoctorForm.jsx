@@ -5,7 +5,7 @@ import axios from '../../config/axios'
 import { Link } from 'react-router-dom'
 import InputDoctorForm from './InputDocrtorForm'
 
-export default function PetsBox() {
+export default function DoctorForm() {
     const [allDoctor, setAllDoctor] = useState([])
 
 
@@ -13,9 +13,6 @@ export default function PetsBox() {
         try {
             await axios.delete(`/admin/${doctorId}`);
             setAllDoctor(allDoctor.filter(el => el.id !== doctorId));
-            axios.get('/admin/doctor')
-                .then((res) => setAllDoctor(res.data.doctor))
-                .catch(err => console.log(err))
         } catch (err) {
             console.log(err)
         }
